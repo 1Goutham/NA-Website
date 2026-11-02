@@ -1,0 +1,12 @@
+{
+  "name": "nunnari-academy-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nunnari Academy — School of AI. Static, dependency-free website.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node serve.mjs"
+  },
+  "engines": { "node": ">=18.17" }
+}

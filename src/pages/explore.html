@@ -1,0 +1,157 @@
+<!-- @page title="Explore — Workshops, Events & Community | Nunnari Academy" description="Workshops, hackathons, community events and a growing AI community. See upcoming and past Nunnari Academy events, learner stories and how to join." nav="explore" -->
+<!doctype html>
+<html lang="en">
+<head>
+<!-- @include head -->
+</head>
+<body>
+<!-- @include header -->
+
+<main id="main">
+  <!-- ============ HERO + FEATURED ============ -->
+  <section class="page-hero" style="padding-bottom:clamp(40px,6vw,64px)" aria-labelledby="explore-title">
+    <div class="deco" aria-hidden="true"><span class="orb orb--a"></span><span class="orb orb--c"></span></div>
+    <div class="container" style="position:relative;z-index:1">
+      <div class="section-head section-head--center" style="margin-bottom:32px">
+        <span class="eyebrow eyebrow--center" data-reveal>Explore</span>
+        <h1 class="h1" id="explore-title" data-split>Workshops, hackathons &amp; an <span class="accent">AI community</span> that builds together.</h1>
+        <p class="lead" data-reveal style="--d:.3s">Learn from industry experts, meet fellow learners and discover real-world opportunities — every week.</p>
+      </div>
+      <nav class="pills" aria-label="Jump to events" data-reveal style="--d:.4s">
+        <a class="is-active" href="#events" data-jump="workshops"><svg class="i"><use href="#i-calendar"/></svg>Workshops</a>
+        <a href="#events" data-jump="hackathons"><svg class="i"><use href="#i-zap"/></svg>Hackathons</a>
+        <a href="#events" data-jump="community"><svg class="i"><use href="#i-users"/></svg>Community Events</a>
+        <a href="#events" data-jump="past"><svg class="i"><use href="#i-history"/></svg>Past Events</a>
+      </nav>
+
+      <article class="card featured" data-reveal="scale" data-date="{{featured-start}}" data-end="{{featured-end}}">
+        <div class="featured__copy">
+          <span class="badge" data-featured-status data-past-label="Recent Workshop">Upcoming Workshop</span>
+          <h2 class="h2" style="font-size:clamp(1.9rem,3.4vw,2.7rem)">Physical AI: World Models, VLA, and the <span class="accent">Future of Robotics</span></h2>
+          <p>{{featured-desc}}</p>
+          <div class="chips-row">
+            <div class="mini-fact"><svg class="i"><use href="#i-calendar"/></svg><div><b>{{featured-date}}</b><span>Saturday</span></div></div>
+            <div class="mini-fact"><svg class="i"><use href="#i-clock"/></svg><div><b>07:00 – 09:00 PM</b><span>IST</span></div></div>
+            <div class="mini-fact"><svg class="i"><use href="#i-monitor"/></svg><div><b>Online</b><span>Live Session</span></div></div>
+          </div>
+          <div class="cta-actions">
+            <button class="btn btn--primary btn--lg" type="button" data-enquire="Register: {{featured-title}}" data-magnetic>Register Now <svg class="i i--arrow"><use href="#i-arrow"/></svg></button>
+            <button class="btn btn--ghost btn--lg" type="button" {{featured-ics}}><svg class="i"><use href="#i-calendar-plus"/></svg><span data-label>Add to Calendar</span></button>
+          </div>
+        </div>
+        <div class="featured__art event__art art" data-tilt>{{featured-art}}</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ FREE THIS SATURDAY ============ -->
+  <section class="section--tight" style="padding-top:0" aria-labelledby="sat-title">
+    <div class="container">
+      <div class="card saturday" data-reveal>
+        <div>
+          <span class="badge">This Saturday</span>
+          <h2 class="h3" id="sat-title" style="margin-top:12px">Free this <span class="accent">Saturday!</span></h2>
+          <p style="margin-top:6px">Join a free community session, meet fellow learners, and get a taste of what we build together.</p>
+        </div>
+        <div class="saturday__art art" aria-hidden="true">
+          <svg viewBox="0 0 220 140">
+            <g class="float-sm">
+              <rect class="ln fill-w" x="56" y="22" width="112" height="96" rx="14" style="stroke-width:2"/>
+              <path class="fill-p" d="M56 36a14 14 0 0 1 14-14h84a14 14 0 0 1 14 14v12H56z"/>
+              <g fill="#fff"><circle cx="80" cy="35" r="3"/><circle cx="144" cy="35" r="3"/></g>
+              <g class="ln-soft"><path d="M70 62h84M70 76h84M70 90h84M70 104h84M88 52v62M106 52v62M124 52v62M142 52v62"/></g>
+              <ellipse class="ln fill-w" cx="112" cy="84" rx="30" ry="18" style="stroke-width:2"/>
+              <text x="112" y="90" text-anchor="middle" font-size="17" font-weight="700" font-family="Inter,sans-serif" fill="#6c3bff" font-style="italic">SAT</text>
+              <path class="ln dash" d="M72 16v14M152 16v14" style="stroke-width:3"/>
+            </g>
+            <g class="ln"><path d="M30 40l8 6M24 62h10M32 84l8-6" style="animation:pulse-dot 2s infinite"/><path d="M190 30l-8 8M196 54h-10" style="animation:pulse-dot 2s infinite .6s"/></g>
+          </svg>
+        </div>
+        <button class="btn btn--primary btn--lg" type="button" data-ics data-ics-allday data-ics-weekly data-ics-title="Nunnari Academy — Free Saturday community session" data-ics-desc="Free community session: meet fellow learners and get a taste of what we build together."><svg class="i"><use href="#i-calendar-plus"/></svg><span data-label>Add to Calendar</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ALL EVENTS ============ -->
+  <section class="section" id="events" style="padding-top:clamp(40px,6vw,72px)" aria-labelledby="events-title">
+    <div class="container">
+      <div class="section-head" style="margin-bottom:24px">
+        <span class="eyebrow" data-reveal>More workshops &amp; events</span>
+        <h2 class="sr-only" id="events-title">Workshops and events</h2>
+      </div>
+      <div class="filters" data-filter-group="event-track" role="group" aria-label="Filter events" data-reveal>
+        <button type="button" data-filter="all" aria-pressed="true">All Events</button>
+        <button type="button" data-filter="workshops" aria-pressed="false">Workshops</button>
+        <button type="button" data-filter="hackathons" aria-pressed="false">Hackathons</button>
+        <button type="button" data-filter="community" aria-pressed="false">Community Events</button>
+        <button type="button" data-filter="past" aria-pressed="false">Past Events</button>
+      </div>
+      <div class="carousel" data-carousel style="margin-top:32px" data-reveal>
+        <button class="icon-btn carousel__nav carousel__nav--prev" type="button" data-prev aria-label="Previous events"><svg class="i"><use href="#i-arrow-left"/></svg></button>
+        <div class="carousel__track" id="event-track" tabindex="0" aria-label="Events" aria-live="polite">
+          <!-- @events-explore -->
+        </div>
+        <button class="icon-btn carousel__nav carousel__nav--next" type="button" data-next aria-label="Next events"><svg class="i"><use href="#i-arrow"/></svg></button>
+        <div class="carousel__dots"></div>
+      </div>
+      <p class="empty" data-empty-for="event-track">Nothing scheduled here just yet — join the community to hear about new sessions first.</p>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section section--surface" id="testimonials" aria-labelledby="t-title" style="overflow:hidden">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow" data-reveal>Testimonials</span>
+        <h2 class="h2" id="t-title" data-split>Learners who found their <span class="accent">next step.</span></h2>
+      </div>
+    </div>
+    <div data-reveal>
+      <!-- @include testimonials -->
+    </div>
+  </section>
+
+  <!-- ============ COMMUNITY ============ -->
+  <section class="section" id="community" aria-labelledby="c-title">
+    <div class="container">
+      <div class="cta-band">
+        <div class="cta-band__grid">
+          <div class="cta-band__copy">
+            <span class="eyebrow" data-reveal>Join our community</span>
+            <h2 class="h2" id="c-title" data-split style="border:0;padding:0;margin:0">Join our <span class="accent">community</span> where creativity thrives.</h2>
+            <p class="lead" data-reveal style="--d:.2s">Unlock the amazing benefits of joining our community, growing your skills, and building connections.</p>
+            <div data-reveal style="--d:.3s"><button class="btn btn--primary btn--lg" type="button" data-enquire="Join the Community" data-magnetic>Join the Community <svg class="i i--arrow"><use href="#i-arrow"/></svg></button></div>
+          </div>
+          <div class="cta-band__art art globe" aria-hidden="true">
+            <div class="glow-bg"></div>
+            <svg viewBox="0 0 400 300">
+              <defs>
+                <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.6" fill="#8b6cff"/></pattern>
+                <clipPath id="globe-clip"><circle cx="200" cy="150" r="104"/></clipPath>
+                <radialGradient id="globe-shade" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".6" stop-color="#e5dcff" stop-opacity=".2"/><stop offset="1" stop-color="#6c3bff" stop-opacity=".35"/></radialGradient>
+              </defs>
+              <circle cx="200" cy="150" r="104" fill="#f1ebff"/>
+              <g clip-path="url(#globe-clip)">
+                <g class="globe__spin"><rect x="80" y="40" width="480" height="220" fill="url(#dots)" opacity=".55"/></g>
+                <g class="ln-soft"><ellipse cx="200" cy="150" rx="104" ry="34"/><ellipse cx="200" cy="150" rx="104" ry="72"/><path d="M96 150h208"/></g>
+                <g class="globe__meridians ln-soft"><ellipse cx="200" cy="150" rx="40" ry="104"/><ellipse cx="200" cy="150" rx="80" ry="104"/></g>
+              </g>
+              <circle cx="200" cy="150" r="104" fill="url(#globe-shade)"/>
+              <g class="orbit"><ellipse class="ln-soft dash" cx="200" cy="150" rx="170" ry="60" transform="rotate(-14 200 150)"/></g>
+              <g class="float" style="--d:-1s"><circle class="ln fill-w" cx="350" cy="64" r="16"/><circle class="ln" cx="350" cy="60" r="5"/><path class="ln" d="M341 72c2-6 16-6 18 0"/></g>
+              <g class="float" style="--d:-3s"><circle class="ln fill-w" cx="60" cy="230" r="14"/><circle class="ln" cx="60" cy="226" r="4.5"/><path class="ln" d="M52 237c2-5 14-5 16 0"/></g>
+              <g class="float" style="--d:-2s"><circle class="ln fill-w" cx="330" cy="240" r="12"/><circle class="ln" cx="330" cy="237" r="4"/><path class="ln" d="M323 246c2-4 12-4 14 0"/></g>
+            </svg>
+            <span class="float-chip" style="left:34%;top:2%;--d:-1s"><svg class="i"><use href="#i-users"/></svg>Networking</span>
+            <span class="float-chip" style="left:0;top:44%;--d:-2.5s"><svg class="i"><use href="#i-calendar"/></svg>Events &amp; Webinars</span>
+            <span class="float-chip" style="right:0;bottom:6%;--d:-4s"><svg class="i"><use href="#i-globe"/></svg>Global Opportunities</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- @include footer -->
+</body>
+</html>
