@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type React from "react";
 import Link from "next/link";
 import Split from "@/components/Split";
-import Constellation from "@/components/canvas/Constellation";
+import Hero from "@/components/sections/Hero";
 import WhoWeAre from "@/components/sections/WhoWeAre";
 import ProgramsCatalog from "@/components/sections/ProgramsCatalog";
 import HomeEvents from "@/components/events/HomeEvents";
@@ -16,72 +16,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <section className="hero" data-hero aria-labelledby="hero-title">
-        <Constellation />
-        <div className="deco" aria-hidden="true">
-          <span className="orb orb--a" />
-          <span className="orb orb--b" />
-          <span className="orb orb--c" />
-        </div>
-        <div className="hero__glow" aria-hidden="true" />
-        <div className="container hero__inner">
-          <p className="hero__tag" data-reveal>
-            NUNNARI ACADEMY{" "}
-            <i>|</i>
-            {" "}SCHOOL OF AI
-          </p>
-          <Split as="h1" className="display" id="hero-title">
-            <span className="line">Learn AI.</span>
-            <span className="line">
-              <span className="accent">Create</span>
-              {" "}What Doesn’t Exist Yet
-              <span className="accent-dot">.</span>
-            </span>
-          </Split>
-          <p className="lead" data-reveal style={{"--d": ".5s"} as React.CSSProperties}>
-            Practical, hands-on AI programs for curious minds – in Tamil and English. Build real skills, create real projects, and be a part of the{" "}
-            <strong>AI pioneer community</strong>
-            {" "}that builds and grows together.
-          </p>
-          <div className="hero__actions" data-reveal style={{"--d": ".65s"} as React.CSSProperties}>
-            <button className="btn btn--primary btn--caps" type="button" data-enquire="Talk to our experts" data-magnetic>
-              <svg className="i"><use href="#i-message" /></svg>
-              Talk to our experts{" "}
-              <svg className="i i--arrow"><use href="#i-arrow" /></svg>
-            </button>
-            <a className="btn btn--ghost btn--caps" href="#programs">
-              <svg className="i"><use href="#i-book" /></svg>
-              Explore our programs
-            </a>
-          </div>
-          <div className="hero__features" data-reveal style={{"--d": ".8s"} as React.CSSProperties}>
-            <div className="feature">
-              <span className="icon-chip"><svg className="i"><use href="#i-message" /></svg></span>
-              <h3>Learn in Tamil</h3>
-              <p>Clear explanations, examples, and guidance in Tamil, so you can truly understand and apply.</p>
-            </div>
-            <div className="feature">
-              <span className="icon-chip"><svg className="i"><use href="#i-laptop" /></svg></span>
-              <h3>Hands-on AI Program</h3>
-              <p>
-                Build real projects, work with modern tools, and gain practical skills through guided, hands-on learning.
-              </p>
-            </div>
-            <div className="feature">
-              <span className="icon-chip"><svg className="i"><use href="#i-cap" /></svg></span>
-              <h3>1 Year of LMS Access</h3>
-              <p>Get 1 year of access to our learning platform with all resources, updates, and new content.</p>
-            </div>
-            <div className="feature">
-              <span className="icon-chip"><svg className="i"><use href="#i-users" /></svg></span>
-              <h3>Global AI Community</h3>
-              <p>
-                Get access to our community where you meet like-minded learners, attend AI events, and discover global opportunities.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero />
       <section className="section" id="who-we-are" aria-labelledby="who-title">
         <div className="container">
           <div className="who__head">

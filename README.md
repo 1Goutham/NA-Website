@@ -19,7 +19,7 @@ Requires Node 22. On Vercel it is detected as a Next.js project automatically. N
 
 | Route | Page |
 | --- | --- |
-| `/` | Home: hero (logo constellation), Who We Are scroll story, Impact, tabbed Programs, Events |
+| `/` | Home: WebGL aurora hero, Who We Are scroll story, Impact, tabbed Programs, Events |
 | `/explore` | Featured workshop, free Saturday session, filterable events, testimonials, community globe |
 | `/programs` | Programme overview, tabbed details, 12-week tracks |
 | `/programs/recorded` · `/programs/regular` · `/programs/premium` | One page per programme |
@@ -43,7 +43,7 @@ components/
   sections/             WhoWeAre (scroll story), ProgramsCatalog (tabs), TrackList, Testimonials
   events/               EventCard, HomeEvents, ExploreEvents (filters), JumpPills, EventArt
   scenes/               animated illustrations (glass, light, depth)
-  canvas/               Constellation (hero), Globe (community)
+  canvas/               Aurora (WebGL hero background), Globe (community)
   ui/                   Carousel, Accordion, Faq, Marquee, QuoteCarousel
 lib/                    site info & navigation, events, programmes, testimonials
 styles/                 main.css (design tokens + components), scenes.css (illustrations), v2.css (story, CTA, transitions)
