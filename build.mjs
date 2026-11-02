@@ -1,10 +1,11 @@
 // Zero-dependency static build: src/pages/*.html + partials -> dist/
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import { events, cardHome, cardExplore, artSvg, icsAttrs, fmtDate } from "./src/data/events.mjs";
 
-const ROOT = path.dirname(new URL(import.meta.url).pathname);
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(ROOT, "src");
 const OUT = path.join(ROOT, "dist");
 
@@ -64,4 +65,4 @@ export function build() {
   console.log(`built ${pages.length} pages -> dist/ in ${Date.now() - t0}ms`);
 }
 
-if (process.argv[1] === new URL(import.meta.url).pathname) build();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) build();
