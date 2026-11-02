@@ -296,9 +296,9 @@ p { text-wrap: pretty; }
 .menu .icon-chip .i { width: 19px; height: 19px; }
 
 .header__cta { display: flex; align-items: center; gap: 8px; }
-.burger { display: none; width: 44px; height: 44px; border-radius: 12px; place-items: center; color: var(--text); background: var(--primary-ultra); }
+.burger { display: none; width: 44px; height: 44px; border-radius: 12px; place-items: center; align-content: center; gap: 5px; color: var(--text); background: var(--primary-ultra); }
 .burger span { display: block; width: 18px; height: 1.6px; background: currentColor; border-radius: 2px; transition: transform .35s var(--ease), opacity .2s; }
-.burger span + span { margin-top: 5px; }
+
 .nav-open .burger span:nth-child(1) { transform: translateY(6.6px) rotate(45deg); }
 .nav-open .burger span:nth-child(2) { opacity: 0; }
 .nav-open .burger span:nth-child(3) { transform: translateY(-6.6px) rotate(-45deg); }
