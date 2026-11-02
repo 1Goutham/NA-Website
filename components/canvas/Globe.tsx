@@ -18,18 +18,21 @@ export default function Globe() {
   const ref = useRef<HTMLCanvasElement>(null);
 
   const setup = useCallback((ctx: CanvasRenderingContext2D, size: { w: number; h: number }) => {
-    const N = 1100, pts: V3[] = [];
+    const N = 720, pts: V3[] = [];
     for (let i = 0; i < N; i++) { const y = 1 - (i / (N - 1)) * 2, rad = Math.sqrt(1 - y * y), th = i * 2.39996; pts.push([Math.cos(th) * rad, y, Math.sin(th) * rad]); }
-    let rot = -1.6;
+    let rot = -1.6, lastDraw = 0;
     const t0 = performance.now(), tilt = 0.32, ct = Math.cos(tilt), st = Math.sin(tilt);
 
     const frame = (now: number) => {
+      if (now - lastDraw < 24) return; // ~40fps is smooth for a slow spin
+      const dtf = lastDraw ? Math.min(3, (now - lastDraw) / 16.7) : 1;
+      lastDraw = now;
       const W = size.w, H = size.h, R = Math.min(W, H) * 0.36, cx = W / 2, cy = H / 2, el = (now - t0) / 1000;
       const proj = ([x, y, z]: V3): V3 => {
         const cr = Math.cos(rot), sr = Math.sin(rot), x1 = x * cr - z * sr, z1 = x * sr + z * cr;
         return [cx + x1 * R, cy - (y * ct - z1 * st) * R, y * st + z1 * ct];
       };
-      rot += 0.0026;
+      rot += 0.0026 * dtf;
       ctx.clearRect(0, 0, W, H);
       const g = ctx.createRadialGradient(cx, cy, R * 0.6, cx, cy, R * 1.35);
       g.addColorStop(0, "rgba(139,108,255,.20)"); g.addColorStop(1, "rgba(139,108,255,0)");

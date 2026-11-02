@@ -61,7 +61,8 @@ public/assets/          illustrations (WebP) and logos
 ## Motion and performance
 
 - Every page is static HTML; JavaScript only adds interaction (progressive enhancement).
-- Smooth scrolling uses Lenis. Animations use `transform` and `opacity`; loops and canvases pause off screen and when the tab is hidden.
+- Smooth scrolling uses Lenis (light inertia). Animations use `transform` and `opacity`; loops and canvases pause off screen and when the tab is hidden, and run at ~40fps (the aurora drops its resolution automatically on slow devices).
+- `styles/perf.css` keeps it smooth: no live backdrop blur, no blurred animated shapes, no background-position animations, and only the elements that move on scroll get their own GPU layers.
 - All motion is turned off for visitors with `prefers-reduced-motion`.
 - Fonts (Inter, Inter Tight) are self-hosted via Fontsource, so there are no requests to Google at runtime or build time.
 - Images go through `next/image` (AVIF/WebP, responsive sizes, lazy loading).

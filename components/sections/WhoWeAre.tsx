@@ -115,11 +115,13 @@ const chapters: Chapter[] = [
 export default function WhoWeAre() {
   const wrap = useRef<HTMLDivElement>(null);
   const blocks = useRef<(HTMLElement | null)[]>([]);
+  const dashes = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const { scrollYProgress } = useScroll({ target: wrap, offset: ["start 60%", "end 60%"] });
 
   useMotionValueEvent(scrollYProgress, "change", (p) => {
-    wrap.current?.style.setProperty("--story-p", (p * chapters.length).toFixed(3));
+    // write the progress only where it is used (the dashes), so the rest of the section is not restyled
+    dashes.current?.style.setProperty("--story-p", (p * chapters.length).toFixed(3));
   });
 
   useEffect(() => {
@@ -157,7 +159,7 @@ export default function WhoWeAre() {
           <div className="story__caption">
             <span key={active} className="story__caption-text">{chapters[active].label}</span>
           </div>
-          <div className="story__dashes">
+          <div className="story__dashes" ref={dashes}>
             {chapters.map((c, i) => (
               <button key={c.id} type="button" tabIndex={-1} aria-label={c.label} onClick={() => go(i)} style={{ "--i": i } as React.CSSProperties}>
                 <i />

@@ -11,7 +11,11 @@ void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }
 // Domain-warped simplex noise → soft violet aurora ribbons on white, a cursor light,
 // a clear zone behind the headline, and fine film grain.
 const FRAG = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
+#else
+precision mediump float;
+#endif
 uniform vec2 u_res;
 uniform float u_time;
 uniform vec2 u_mouse;      // px, y up
@@ -73,9 +77,7 @@ void main(){
   p += normalize(toM + 1e-4) * 0.06 * u_energy * exp(-md * md * 5.0);
 
   vec2 q = vec2(snoise(vec3(p * 0.55, t)), snoise(vec3(p * 0.55 + vec2(5.2, 1.3), t)));
-  vec2 r = vec2(snoise(vec3(p * 0.8 + 1.1 * q + vec2(1.7, 9.2), t * 1.2)),
-                snoise(vec3(p * 0.8 + 1.1 * q + vec2(8.3, 2.8), t * 1.2)));
-  float n = snoise(vec3(p * 0.7 + 1.2 * r, t * 0.8));
+  vec2 r = vec2(q.y, -q.x) * 0.9 + 0.35 * vec2(sin(p.y * 1.3 + t * 2.1), cos(p.x * 1.1 - t * 1.7));
 
   // flowing ribbons
   float rib = sin(n * 2.4 + p.x * 1.3 + p.y * 0.9 + t * 2.0);
@@ -152,10 +154,13 @@ export default function Aurora({ className = "" }: { className?: string }) {
     const uEnergy = gl.getUniformLocation(prog, "u_energy");
 
     // render below native resolution: the image is soft by nature, this keeps it cheap
-    const SCALE = Math.min(1, (window.devicePixelRatio || 1)) * 0.6;
+    // soft image → render small and let the GPU upscale; capped so huge screens stay cheap
+    let SCALE = 0.42;
+    const MAX_W = 720;
     let W = 0, H = 0;
     const resize = () => {
       const r = cv.getBoundingClientRect();
+      SCALE = Math.min(SCALE, MAX_W / Math.max(1, r.width));
       W = Math.max(1, Math.round(r.width * SCALE));
       H = Math.max(1, Math.round(r.height * SCALE));
       cv.width = W; cv.height = H;
@@ -188,7 +193,18 @@ export default function Aurora({ className = "" }: { className?: string }) {
       gl.uniform1f(uEnergy, mouse.e);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
-    const loop = (now: number) => { draw(now); raf = requestAnimationFrame(loop); };
+    // ~40fps is plenty for a slow-moving gradient; drop resolution once if the device struggles
+    let lastDraw = 0, slow = 0, frames = 0, degraded = false;
+    const loop = (now: number) => {
+      raf = requestAnimationFrame(loop);
+      const dt = now - lastDraw;
+      if (dt < 24) return;
+      frames++;
+      if (dt > 45) slow++;
+      if (!degraded && frames === 90 && slow > 30) { degraded = true; SCALE *= 0.65; resize(); }
+      lastDraw = now;
+      draw(now);
+    };
     const start = () => { if (!running && !reduced && !document.hidden) { running = true; raf = requestAnimationFrame(loop); } };
     const stop = () => { running = false; cancelAnimationFrame(raf); };
 

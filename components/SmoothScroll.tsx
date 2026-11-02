@@ -15,9 +15,11 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      // responsive, light inertia (a long duration feels laggy)
+      lerp: 0.13,
+      wheelMultiplier: 1,
       smoothWheel: true,
+      syncTouch: false,
       anchors: { offset: -96 },
     });
     window.__lenis = lenis;

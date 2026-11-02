@@ -24,22 +24,30 @@ export default function Header() {
   // close menus on navigation
   useEffect(() => { setOpenKey(null); setDrawer(false); }, [pathname]);
 
-  // scrolled / hide-on-scroll / progress
+  // scrolled / hide-on-scroll / progress — state changes only when a value flips,
+  // and the page height is cached (no layout read per frame)
   useEffect(() => {
-    let last = scrollY, ticking = false;
+    let last = scrollY, ticking = false, max = 1, sc = false, hd = false;
+    const measure = () => { max = Math.max(1, document.documentElement.scrollHeight - innerHeight); };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(document.body);
     const update = () => {
-      const y = scrollY;
-      setScrolled(y > 8);
-      setHidden(y > last && y > 240);
-      last = y;
-      const max = document.documentElement.scrollHeight - innerHeight;
-      progress.current?.style.setProperty("--p", max > 0 ? (y / max).toFixed(4) : "0");
       ticking = false;
+      const y = scrollY, dy = y - last;
+      const nextSc = y > 8;
+      if (nextSc !== sc) { sc = nextSc; setScrolled(sc); }
+      if (Math.abs(dy) > 6) {
+        const nextHd = dy > 0 && y > 240;
+        if (nextHd !== hd) { hd = nextHd; setHidden(hd); }
+        last = y;
+      }
+      progress.current?.style.setProperty("--p", Math.min(1, y / max).toFixed(4));
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     addEventListener("scroll", onScroll, { passive: true });
     update();
-    return () => removeEventListener("scroll", onScroll);
+    return () => { removeEventListener("scroll", onScroll); ro.disconnect(); };
   }, []);
 
   // escape + outside click
