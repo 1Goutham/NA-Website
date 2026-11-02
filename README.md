@@ -58,4 +58,4 @@ Include a partial with `<!-- @include name -->`.
 - Illustrations are layered scenes built in CSS, SVG and canvas (`src/partials/scene-*.html`, `src/css/scenes.css`, `src/js/scenes.js`): glass panels, 3D spheres, light and pointer parallax. They stay crisp at any size and weigh a few KB.
 - The hero's particle background is built from the Nunnari logo grid and reacts to the cursor; the community globe is a canvas dot-sphere with travelling arcs.
 - The five provided illustrations are served as responsive WebP (480w and 800w) and load lazily.
-- The CSS and JS together are under 100 KB uncompressed.
+- All CSS and JS together is about 135 KB uncompressed (roughly 30 KB gzipped). No libraries.
