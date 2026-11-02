@@ -43,7 +43,7 @@ const chapters: Chapter[] = [
     label: "Why choose Nunnari Academy",
     title: <>Learn. Build. Grow. With <em>real support.</em></>,
     text: "Practical programmes, bilingual learning, real projects and lifelong access — designed to help you go from curiosity to career.",
-    img: "/assets/img/why-800.webp",
+    img: "/assets/img/why-logo-800.webp",
     alt: "Nunnari Academy's learning platform: learn in Tamil, LMS access and hands-on programmes",
     detail: (
       <dl className="story-dl story-dl--grid">
@@ -59,7 +59,7 @@ const chapters: Chapter[] = [
     label: "Backed by Nunnari Labs & DeepWeaver",
     title: <>Powered by real <em>innovation and expertise.</em></>,
     text: "Nunnari Academy is supported by Nunnari Labs and DeepWeaver — organisations focused on AI research, products, and real-world impact.",
-    img: "/assets/img/backed-800.webp",
+    img: "/assets/img/backed-logo-800.webp",
     alt: "DeepWeaver (Australia) and Nunnari Labs (India), ISO 42001 certified",
     detail: (
       <div className="story-orgs">
@@ -95,7 +95,7 @@ const chapters: Chapter[] = [
     label: "Our learners & partners",
     title: <>Real people. <em>Real progress.</em></>,
     text: "Our learners are building projects, getting placed, starting their own ventures, and working at leading companies. We collaborate with industry partners to bring real opportunities to our community.",
-    img: "/assets/img/learners-800.webp",
+    img: "/assets/img/learners-logo-800.webp",
     alt: "Nunnari Academy partners across government, enterprises, schools and universities",
     detail: (
       <div className="story-stats">
