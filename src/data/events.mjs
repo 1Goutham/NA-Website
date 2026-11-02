@@ -153,8 +153,10 @@ export const arts = {
     <g class="float" style="--d:-2s"><circle class="ln fill-soft" cx="62" cy="52" r="16"/><path class="ln" d="M62 44v16m-8-8h16"/><circle class="ln pulse" cx="62" cy="52" r="16" style="fill:none"/></g>`,
 };
 
+const artDefs = "";
+
 export const artSvg = (key) =>
-  `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">${arts[key] || ""}</svg>`;
+  `<span class="stars" aria-hidden="true"></span><span class="gs__floor" aria-hidden="true"></span><svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">${artDefs}${arts[key] || ""}</svg>`;
 
 export const icsAttrs = (e) =>
   `data-ics data-ics-title="${esc(e.title)}" data-ics-start="${e.start}" data-ics-end="${e.end}" data-ics-desc="${esc(e.desc || "Nunnari Academy event")}"`;

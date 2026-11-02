@@ -20,7 +20,9 @@ the build command is `npm run build` and the output directory is `dist`.
 | `index.html` | Home: hero, Who We Are (5 stacked scroll cards), Impact, tabbed Programs, Events, callback, footer |
 | `explore.html` | Featured workshop, weekly free Saturday session, filterable events, testimonials, community |
 | `programs.html` | Recorded / Regular / Premium overview, tabbed details, 12-week tracks |
-| `regular-programme.html` | Regular Programme detail (growth, who can join, tools, outcomes, FAQ) |
+| `recorded-programme.html` | Recorded Programme page |
+| `regular-programme.html` | Regular Programme page (growth, who can join, tools, outcomes, FAQ) |
+| `premium-programme.html` | Premium Programme page |
 | `partner-institutions.html` | Partner with us: institutions |
 | `partner-corporates.html` | Partner with us: corporates |
 | `help.html`, `terms.html`, `privacy.html`, `refund.html` | Support and legal |
@@ -53,6 +55,7 @@ Include a partial with `<!-- @include name -->`.
 
 - Animations use only `transform` and `opacity`. Looping animations pause when they scroll off screen or the tab is hidden.
 - All motion is turned off when the visitor has `prefers-reduced-motion` set.
-- Illustrations are inline SVG line art, so they are crisp at any size and very small.
+- Illustrations are layered scenes built in CSS, SVG and canvas (`src/partials/scene-*.html`, `src/css/scenes.css`, `src/js/scenes.js`): glass panels, 3D spheres, light and pointer parallax. They stay crisp at any size and weigh a few KB.
+- The hero's particle background is built from the Nunnari logo grid and reacts to the cursor; the community globe is a canvas dot-sphere with travelling arcs.
 - The five provided illustrations are served as responsive WebP (480w and 800w) and load lazily.
 - The CSS and JS together are under 100 KB uncompressed.

@@ -10,6 +10,7 @@
 
   /* ---------- Header: scrolled / hide on scroll down ---------- */
   const header = $("[data-header]");
+  const progress = $("[data-progress]");
   let lastY = scrollY;
   let ticking = false;
   const onScroll = () => {
@@ -22,6 +23,8 @@
     }
     lastY = y;
     ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress?.style.setProperty("--p", max > 0 ? (y / max).toFixed(4) : 0);
   };
   addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
   onScroll();

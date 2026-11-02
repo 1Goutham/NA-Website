@@ -7,7 +7,7 @@ import { events, cardHome, cardExplore, artSvg, icsAttrs, fmtDate } from "./src/
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(ROOT, "src");
-const OUT = path.join(ROOT, "dist");
+const FINAL = path.join(ROOT, "dist");
 
 const read = (p) => fs.readFileSync(p, "utf8");
 const copyDir = (from, to) => {
@@ -20,12 +20,14 @@ const copyDir = (from, to) => {
 
 export function build() {
   const t0 = Date.now();
+  // build into a temp folder, then swap it in, so a half-written dist/ is never served
+  const OUT = `${FINAL}.tmp-${process.pid}-${t0}`;
   fs.rmSync(OUT, { recursive: true, force: true });
   copyDir(path.join(SRC, "assets"), path.join(OUT, "assets"));
   copyDir(path.join(SRC, "css"), path.join(OUT, "css"));
   copyDir(path.join(SRC, "js"), path.join(OUT, "js"));
 
-  const v = crypto.createHash("md5").update(read(path.join(SRC, "css/main.css")) + read(path.join(SRC, "js/main.js"))).digest("hex").slice(0, 8);
+  const v = crypto.createHash("md5").update(["css/main.css", "css/scenes.css", "js/main.js", "js/scenes.js"].map((f) => read(path.join(SRC, f))).join("")).digest("hex").slice(0, 8);
   const partials = Object.fromEntries(
     fs.readdirSync(path.join(SRC, "partials")).map((f) => [path.basename(f, ".html"), read(path.join(SRC, "partials", f))])
   );
@@ -62,6 +64,8 @@ export function build() {
     if (meta.nav) html = html.replace(`data-nav="${meta.nav}"`, `data-nav="${meta.nav}" aria-current="page"`);
     fs.writeFileSync(path.join(OUT, file), html);
   }
+  fs.rmSync(FINAL, { recursive: true, force: true });
+  fs.renameSync(OUT, FINAL);
   console.log(`built ${pages.length} pages -> dist/ in ${Date.now() - t0}ms`);
 }
 
