@@ -1,61 +1,67 @@
 # Nunnari Academy — Website
 
-A minimal, fast site for Nunnari Academy: white-and-violet theme, small micro-interactions, and lightweight animated illustrations.
-It is static HTML, CSS and JavaScript with **no dependencies and no framework**.
+Next.js (App Router, TypeScript) site for Nunnari Academy — School of AI.
+White-and-violet design system, smooth scrolling, micro-interactions and animated illustrations built in CSS, SVG and canvas.
 
 ## Run it
 
 ```bash
-npm run dev     # builds to dist/ and serves http://localhost:5173 (rebuilds on save)
-npm run build   # one-off build to dist/
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build (all pages prerendered as static HTML)
+npm start          # serve the production build
+npm run typecheck
 ```
 
-Requires Node 18.17+. Deploy the `dist/` folder to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3):
-the build command is `npm run build` and the output directory is `dist`.
+Requires Node 22. On Vercel it is detected as a Next.js project automatically. No custom build settings are needed.
 
-## Pages
+## Routes
 
-| File | Page |
+| Route | Page |
 | --- | --- |
-| `index.html` | Home: hero, Who We Are (5 stacked scroll cards), Impact, tabbed Programs, Events, callback, footer |
-| `explore.html` | Featured workshop, weekly free Saturday session, filterable events, testimonials, community |
-| `programs.html` | Recorded / Regular / Premium overview, tabbed details, 12-week tracks |
-| `recorded-programme.html` | Recorded Programme page |
-| `regular-programme.html` | Regular Programme page (growth, who can join, tools, outcomes, FAQ) |
-| `premium-programme.html` | Premium Programme page |
-| `partner-institutions.html` | Partner with us: institutions |
-| `partner-corporates.html` | Partner with us: corporates |
-| `help.html`, `terms.html`, `privacy.html`, `refund.html` | Support and legal |
+| `/` | Home: hero (logo constellation), Who We Are scroll story, Impact, tabbed Programs, Events |
+| `/explore` | Featured workshop, free Saturday session, filterable events, testimonials, community globe |
+| `/programs` | Programme overview, tabbed details, 12-week tracks |
+| `/programs/recorded` · `/programs/regular` · `/programs/premium` | One page per programme |
+| `/partner/institutions` · `/partner/corporates` | Partner with us |
+| `/help` · `/terms` · `/privacy` · `/refund` | Support and legal |
+
+Old `*.html` URLs from the previous static site redirect permanently to these routes (see `next.config.ts`).
+`sitemap.xml` and `robots.txt` are generated.
 
 ## Structure
 
 ```
-src/
-  pages/      one HTML file per page (top comment sets title / description / active nav)
-  partials/   header, footer, icons, logo mark, programs catalogue, callback bar, dialog …
-  data/       events.mjs: the single list of workshops and events
-  css/        main.css: design tokens (brand palette) and components
-  js/         main.js: all interactions, no dependencies
-  assets/     optimised illustrations (WebP) and logos
-build.mjs     zero-dependency build (partials + events → dist/)
-serve.mjs     dev server with rebuild on change
+app/                    routes (page.tsx per route), root layout, programs/layout.tsx (sticky CTA)
+components/
+  Header, Footer, Mark, Icon, IconSprite
+  Enquiry.tsx           site-wide enquiry dialog (any element with data-enquire="Topic" opens it)
+  SmoothScroll.tsx      Lenis inertia scrolling
+  Effects.tsx           reveals, counters, spotlight, magnetic buttons, scene parallax, .ics, event status
+  Split.tsx             headings that animate word by word
+  StickyCta.tsx         floating "Still Confused?" bar — programme pages only
+  sections/             WhoWeAre (scroll story), ProgramsCatalog (tabs), TrackList, Testimonials
+  events/               EventCard, HomeEvents, ExploreEvents (filters), JumpPills, EventArt
+  scenes/               animated illustrations (glass, light, depth)
+  canvas/               Constellation (hero), Globe (community)
+  ui/                   Carousel, Accordion, Faq, Marquee, QuoteCarousel
+lib/                    site info & navigation, events, programmes, testimonials
+styles/                 main.css (design tokens + components), scenes.css (illustrations), v2.css (story, CTA, transitions)
+public/assets/          illustrations (WebP) and logos
 ```
-
-Include a partial with `<!-- @include name -->`.
 
 ## Common edits
 
-- **Add or update an event:** edit `src/data/events.mjs`. The new event shows up on the Home carousel and on Explore.
-  Cards whose date has passed are marked "Completed" automatically in the browser. Set `featured: true` to use an event as the Explore hero.
-- **Change colours:** edit the tokens at the top of `src/css/main.css`. They come from the brand palette sheet.
-- **Enquiry forms:** "Talk to us", "Request a Call", "Register", "Enroll" and "Partner with us" all open one dialog (`src/partials/dialog.html`).
-  It currently opens a pre-filled email to `hello@nunnari.academy`. To use your CRM or form backend instead, replace the `submit` handler in `src/js/main.js` (search for "Enquiry dialog").
+- **Events:** edit `lib/events.ts`. Past events are marked "Completed" automatically in the browser. `featured: true` puts one in the Explore hero.
+- **Contact details, socials and navigation:** `lib/site.ts`.
+- **12-week tracks:** `lib/programs.ts`.
+- **Enquiry form:** `components/Enquiry.tsx`. It currently opens a pre-filled email to `hello@nunnari.academy`; replace `submit` with a call to your CRM or an API route.
+- **Colours:** tokens at the top of `styles/main.css`, from the brand palette sheet.
 
 ## Motion and performance
 
-- Animations use only `transform` and `opacity`. Looping animations pause when they scroll off screen or the tab is hidden.
-- All motion is turned off when the visitor has `prefers-reduced-motion` set.
-- Illustrations are layered scenes built in CSS, SVG and canvas (`src/partials/scene-*.html`, `src/css/scenes.css`, `src/js/scenes.js`): glass panels, 3D spheres, light and pointer parallax. They stay crisp at any size and weigh a few KB.
-- The hero's particle background is built from the Nunnari logo grid and reacts to the cursor; the community globe is a canvas dot-sphere with travelling arcs.
-- The five provided illustrations are served as responsive WebP (480w and 800w) and load lazily.
-- All CSS and JS together is about 135 KB uncompressed (roughly 30 KB gzipped). No libraries.
+- Every page is static HTML; JavaScript only adds interaction (progressive enhancement).
+- Smooth scrolling uses Lenis. Animations use `transform` and `opacity`; loops and canvases pause off screen and when the tab is hidden.
+- All motion is turned off for visitors with `prefers-reduced-motion`.
+- Fonts (Inter, Inter Tight) are self-hosted via Fontsource, so there are no requests to Google at runtime or build time.
+- Images go through `next/image` (AVIF/WebP, responsive sizes, lazy loading).
