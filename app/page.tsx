@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import type React from "react";
 import Link from "next/link";
 import Split from "@/components/Split";
-import Marquee from "@/components/ui/Marquee";
 import Constellation from "@/components/canvas/Constellation";
 import WhoWeAre from "@/components/sections/WhoWeAre";
 import ProgramsCatalog from "@/components/sections/ProgramsCatalog";
@@ -197,29 +196,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="trust-strip" data-reveal>
-            <p>Our learners work at</p>
-            <Marquee duration={46}>
-                <span className="wordmark">Google</span>
-                <span className="wordmark">Microsoft</span>
-                <span className="wordmark">amazon</span>
-                <span className="wordmark">Infosys</span>
-                <span className="wordmark">ZOHO</span>
-                <span className="wordmark">TCS</span>
-                <span className="wordmark">wipro</span>
-                <span className="wordmark">accenture</span>
-                <span className="wordmark">cognizant</span>
-                <span className="wordmark">BOSCH</span>
-                <span className="wordmark">HCL</span>
-                <span className="wordmark">IBM</span>
-                <span className="wordmark">EY</span>
-                <span className="wordmark">KPMG</span>
-                <span className="wordmark">Capgemini</span>
-                <span className="wordmark">SIEMENS</span>
-                <span className="wordmark">Deloitte.</span>
-                <span className="wordmark">UST</span>
-              </Marquee>
-          </div>
+          
         </div>
       </section>
       <section className="section" id="programs" aria-labelledby="programs-title">
