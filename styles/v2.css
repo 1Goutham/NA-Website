@@ -174,3 +174,49 @@ html.lenis, html.lenis body { height: auto; }
 }
 /* soft hand-off from the hero into the page (stays put while the aurora parallaxes) */
 .hx::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 180px; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgb(255 255 255 / 0), #fff 92%); }
+
+/* doc 1.6 — "View Programme Details" centred in each programme card */
+.panel__cta { justify-content: center; }
+
+/* doc — "Learning outcomes": cards reveal one after another */
+.js ol.journey .journey__step { opacity: 0; transform: translate3d(0, 28px, 0) scale(.97); transition: opacity .8s var(--ease), transform .9s var(--ease), box-shadow .5s var(--ease), border-color .3s; transition-delay: calc(var(--k) * .14s); }
+.js ol.journey.is-in .journey__step { opacity: 1; transform: none; }
+.js ol.journey.is-in .journey__step:hover { transform: translateY(-4px); transition-delay: 0s; }
+
+/* doc 1.2 — official Nunnari Academy logo in the navigation */
+.brand__logo { height: 56px; width: auto; display: block; transition: transform .4s var(--ease); }
+.site-header.is-scrolled .brand__logo { transform: scale(.92); }
+.brand:hover .brand__logo { transform: scale(1.04); }
+@media (max-width: 560px) { .brand__logo { height: 48px; } }
+
+/* enquiry form states */
+.field label span[aria-hidden] { color: var(--primary); }
+.field--error input, .field--error textarea { border-color: var(--error); background: #fff; box-shadow: 0 0 0 4px rgb(239 68 68 / 10%); }
+.field__error { color: var(--error); font-size: .8rem; line-height: 1.35; }
+.field__error a { color: inherit; text-decoration: underline; }
+.hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; }
+.modal__sent { justify-items: center; text-align: center; padding: 18px 0 8px; animation: rise .5s var(--ease); }
+.modal__tick { width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: linear-gradient(140deg, #8b6cff, #5a2ef0); box-shadow: 0 16px 30px -12px rgb(90 46 240 / 70%); animation: pop .6s var(--ease-spring); }
+.modal__tick .i { width: 30px; height: 30px; stroke-width: 2.6; }
+.modal__sent-title { font: 600 1.35rem/1.2 var(--font-display); color: var(--text); letter-spacing: -0.02em; }
+.btn[disabled] { opacity: .65; pointer-events: none; }
+
+/* add to calendar menu */
+.atc { position: relative; display: inline-flex; }
+.atc__menu { position: absolute; left: 0; bottom: calc(100% + 10px); z-index: 30; min-width: 230px; padding: 6px; border-radius: 16px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-lg); display: grid; animation: rise .35s var(--ease); }
+.atc__menu a, .atc__menu button { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; font-size: .92rem; font-weight: 500; color: var(--text); text-align: left; transition: background-color .2s; }
+.atc__menu a:hover, .atc__menu button:hover { background: var(--surface-alt); }
+.atc__ic { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--primary-ultra); color: var(--primary); font: 700 .85rem var(--font-display); }
+.atc__ic--g { background: #e8f0fe; color: #1a73e8; }
+.atc__ic--o { background: #e5f1fb; color: #0f6cbd; }
+.atc__ic .i { width: 15px; height: 15px; }
+
+/* events that have started / finished are disabled */
+.event.is-closed .event__art { filter: grayscale(.55) brightness(.92); }
+.event.is-closed { box-shadow: none; }
+.event.is-closed:hover { transform: none; }
+.event [data-register][disabled] { opacity: .55; cursor: not-allowed; }
+.event .event__foot .btn { min-height: 40px; }
+
+/* the global `* { margin: 0 }` reset removes the UA centring of modal dialogs */
+dialog.modal { margin: auto; max-height: calc(100svh - 32px); overflow-y: auto; overscroll-behavior: contain; }

@@ -2,20 +2,21 @@ import type { Metadata } from "next";
 import type React from "react";
 import Link from "next/link";
 import Split from "@/components/Split";
+import BrochureButton from "@/components/ui/BrochureButton";
 import Accordion from "@/components/ui/Accordion";
 import SceneGlobe from "@/components/scenes/SceneGlobe";
 import SceneRecorded from "@/components/scenes/SceneRecorded";
 
 export const metadata: Metadata = {
   title: "Recorded Programme — Learn AI at Your Own Pace",
-  description: "Affordable, flexible, and self-paced AI learning for K12 students and college graduates who are new to AI. Online (recorded), 3–6 months.",
+  description: "Affordable, flexible, and self-paced AI learning for K12 students and college students who are new to AI. Online (recorded), 3–6 months.",
   alternates: { canonical: "/programs/recorded" },
 };
 
 const faq = [
-  { q: "Who is the Recorded Programme for?", a: "K12 students and college graduates who are new to AI." },
+  { q: "Who is the Recorded Programme for?", a: "K12 students and college students who are new to AI." },
   { q: "How is it delivered?", a: "Online, as recorded lessons — so you can learn whenever it suits you." },
-  { q: "How long does it take?", a: "It is self-paced, typically 3–6 months." },
+  { q: "How long does it take?", a: "It is a 12-week programme, delivered as recorded lessons so you can learn at your own pace." },
   { q: "What will I have at the end?", a: "Foundational AI skills, real projects, and a portfolio built with guided exercises." },
 ];
 
@@ -37,23 +38,21 @@ export default function RecordedPage() {
               <span className="accent">Own Pace.</span>
             </Split>
             <p className="lead" data-reveal style={{"--d": ".3s"} as React.CSSProperties}>
-              Affordable, flexible, and self-paced learning for K12 students and college graduates who are new to AI.
+              Affordable, flexible, and self-paced learning for K12 students and college students who are new to AI.
             </p>
             <div className="chips-row" data-reveal style={{"--d": ".4s"} as React.CSSProperties}>
               <div className="mini-fact">
                 <svg className="i"><use href="#i-clock" /></svg>
                 <div>
                   <b>Self-paced</b>
-                  <span>3–6 months</span>
+                  <span>12 Weeks</span>
                 </div>
               </div>
               <div className="mini-fact">
                 <svg className="i"><use href="#i-user" /></svg>
                 <div>
                   <b>
-                    K12{" "}
-                    &amp;
-                    {" "}Graduates
+                    K12 &amp; Students
                   </b>
                   <span>New to AI</span>
                 </div>
@@ -71,7 +70,7 @@ export default function RecordedPage() {
                 Enroll Now{" "}
                 <svg className="i i--arrow"><use href="#i-arrow" /></svg>
               </button>
-              <a className="btn btn--ghost btn--lg" href="#learn">What you'll learn</a>
+              <BrochureButton program="recorded" />
             </div>
           </div>
           <div className="page-hero__art"><SceneRecorded /></div>
@@ -96,7 +95,7 @@ export default function RecordedPage() {
               <b>
                 K12 Students{" "}
                 &amp;
-                {" "}College Graduates
+                {" "}College Students
               </b>
             </div>
             <div className="card card--hover spot glance__item" data-reveal style={{"--d": ".08s"} as React.CSSProperties}>
@@ -107,7 +106,7 @@ export default function RecordedPage() {
             <div className="card card--hover spot glance__item" data-reveal style={{"--d": ".16s"} as React.CSSProperties}>
               <span className="icon-chip icon-chip--lg"><svg className="i"><use href="#i-clock" /></svg></span>
               <small>Duration</small>
-              <b>Self-paced (3–6 months)</b>
+              <b>12 Weeks, self-paced</b>
             </div>
             <div className="card card--hover spot glance__item" data-reveal style={{"--d": ".24s"} as React.CSSProperties}>
               <span className="icon-chip icon-chip--lg"><svg className="i"><use href="#i-target" /></svg></span>

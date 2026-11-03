@@ -183,14 +183,7 @@ export default function InstitutionsPage() {
                 of Arts and Science
               </span>
             </div>
-            <div className="card card--hover logo-card logo-card--more" data-reveal style={{"--d": ".36s"} as React.CSSProperties}>
-              <span className="mono"><svg className="i"><use href="#i-plus" /></svg></span>
-              <span style={{"color": "var(--primary)", "fontWeight": "500"} as React.CSSProperties}>
-                and more
-                <br />
-                partner institutions
-              </span>
-            </div>
+            
           </div>
         </div>
       </section>

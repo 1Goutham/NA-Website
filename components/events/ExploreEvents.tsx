@@ -8,7 +8,6 @@ import { events, featuredEvent, type EventItem } from "@/lib/events";
 const FILTERS = [
   { key: "all", label: "All Events" },
   { key: "workshops", label: "Workshops" },
-  { key: "hackathons", label: "Hackathons" },
   { key: "community", label: "Community Events" },
   { key: "past", label: "Past Events" },
 ];
@@ -19,9 +18,6 @@ export default function ExploreEvents() {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
     setNow(Date.now());
-    const onJump = (e: Event) => setFilter((e as CustomEvent<string>).detail);
-    addEventListener("events:filter", onJump);
-    return () => removeEventListener("events:filter", onJump);
   }, []);
 
   const isPast = (e: EventItem) => now !== null && new Date(e.end).getTime() + 3 * 3600e3 < now;

@@ -6,7 +6,7 @@ export const site = {
   url: "https://nunnari.academy",
   description:
     "Practical, hands-on AI programs for curious minds – in Tamil and English. Build real skills, create real projects, and be a part of the AI pioneer community.",
-  email: "hello@nunnari.academy",
+  email: "enquiry@nunnari.academy",
   phone: { label: "+91 90033 13175", href: "tel:+919003313175" },
   callback: { label: "08045579578", href: "tel:+918045579578" },
   support: { label: "+91 90430 35584", href: "tel:+919043035584", email: "enquiry@nunnari.academy" },
@@ -26,18 +26,17 @@ export const nav: NavItem[] = [
     label: "Programs",
     key: "programs",
     items: [
-      { href: "/programs/recorded", title: "Recorded Programs", sub: "K12 & College Graduates", icon: "play" },
-      { href: "/programs/regular", title: "Regular Programs", sub: "Beginners (L1 & L2)", icon: "users" },
+      { href: "/programs/recorded", title: "Recorded Programs", sub: "K12 & College Students", icon: "play" },
+      { href: "/programs/regular", title: "Regular Programs", sub: "Beginners (L1)", icon: "users" },
       { href: "/programs/premium", title: "Premium Programs", sub: "Advanced (L3+) & C-Suite", icon: "crown" },
-      { href: "/programs", title: "All Programs", sub: "Compare levels & 12-week tracks", icon: "layers" },
     ],
   },
   {
     label: "Partner with us",
     key: "partner",
     items: [
-      { href: "/partner/institutions", title: "Institutions", sub: "Academia (MoU)", icon: "uni" },
-      { href: "/partner/corporates", title: "Corporates", sub: "For Teams & Organisations", icon: "briefcase" },
+      { href: "/partner/institutions", title: "Institutional Collaboration", sub: "Academia (MoU)", icon: "uni" },
+      { href: "/partner/corporates", title: "Corporate Collaboration", sub: "For Teams & Organisations", icon: "briefcase" },
     ],
   },
   { label: "About Nunnari", key: "about", href: "/#who-we-are" },
@@ -45,7 +44,7 @@ export const nav: NavItem[] = [
     label: "Explore",
     key: "explore",
     items: [
-      { href: "/explore#events", title: "Workshops & Events", sub: "Webinars, hackathons, sessions", icon: "calendar" },
+      { href: "/explore#events", title: "Workshops", sub: "Webinars, workshops & sessions", icon: "calendar" },
       { href: "/explore#testimonials", title: "Testimonials", sub: "Learners who found their next step", icon: "message" },
       { href: "/explore#community", title: "Community", sub: "Join our AI community", icon: "globe" },
     ],

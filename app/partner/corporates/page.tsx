@@ -110,9 +110,7 @@ export default function CorporatesPage() {
             <div className="card card--hover logo-card" data-reveal style={{"--d": ".15s"} as React.CSSProperties}><span className="wm">HCL</span></div>
             <div className="card card--hover logo-card" data-reveal style={{"--d": ".2s"} as React.CSSProperties}><span className="wm">accenture</span></div>
             <div className="card card--hover logo-card" data-reveal style={{"--d": ".25s"} as React.CSSProperties}><span className="wm">wipro</span></div>
-            <div className="card card--hover logo-card logo-card--more" data-reveal style={{"--d": ".3s", "gridColumn": "span 3", "minHeight": "64px"} as React.CSSProperties}>
-              <span style={{"color": "var(--primary)", "fontWeight": "500"} as React.CSSProperties}>and more…</span>
-            </div>
+            
           </div>
         </div>
       </section>

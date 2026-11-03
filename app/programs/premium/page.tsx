@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type React from "react";
 import Link from "next/link";
 import Split from "@/components/Split";
+import BrochureButton from "@/components/ui/BrochureButton";
 import SceneNetwork from "@/components/scenes/SceneNetwork";
 import ScenePremium from "@/components/scenes/ScenePremium";
 
@@ -53,13 +54,20 @@ export default function PremiumPage() {
                   <span>Board-level leaders</span>
                 </div>
               </div>
+              <div className="mini-fact">
+                <svg className="i"><use href="#i-clock" /></svg>
+                <div>
+                  <b>12 Weeks</b>
+                  <span>Programme</span>
+                </div>
+              </div>
             </div>
             <div className="cta-actions" data-reveal style={{"--d": ".5s"} as React.CSSProperties}>
               <button className="btn btn--primary btn--lg" type="button" data-enquire="Premium Programmes" data-magnetic>
                 Talk to our team{" "}
                 <svg className="i i--arrow"><use href="#i-arrow" /></svg>
               </button>
-              <Link className="btn btn--ghost btn--lg" href="/programs">Compare programmes</Link>
+              <BrochureButton program="premium" />
             </div>
           </div>
           <div className="page-hero__art"><ScenePremium /></div>

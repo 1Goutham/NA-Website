@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/Icon";
-import Mark from "@/components/Mark";
+import Image from "next/image";
 import { nav } from "@/lib/site";
 import clsx from "@/lib/clsx";
 
@@ -82,8 +82,7 @@ export default function Header() {
       <header className={clsx("site-header", scrolled && "is-scrolled", hidden && !openKey && !drawer && "is-hidden", drawer && "nav-open")}>
         <div className="container header__inner">
           <Link className="brand" href="/" aria-label="Nunnari Academy — School of AI, home">
-            <Mark />
-            <span className="brand__text"><b>NUNNARI ACADEMY</b><small>SCHOOL OF AI</small></span>
+            <Image className="brand__logo" src="/assets/logos/academy-logo.png" alt="Nunnari Academy" width={339} height={396} priority />
           </Link>
 
           <nav className="nav" id="primary-nav" aria-label="Primary">

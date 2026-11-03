@@ -9,8 +9,8 @@ import SceneRegular from "@/components/scenes/SceneRegular";
 import ScenePremium from "@/components/scenes/ScenePremium";
 
 const tabs = [
-  { key: "recorded", title: "Recorded Programs", sub: "K12 & College Graduates", icon: "play" as const },
-  { key: "regular", title: "Regular Programs", sub: "Beginners (L1 & L2)", icon: "users" as const },
+  { key: "recorded", title: "Recorded Programs", sub: "K12 & College Students", icon: "play" as const },
+  { key: "regular", title: "Regular Programs", sub: "Beginners (L1)", icon: "users" as const },
   { key: "premium", title: "Premium Programs", sub: "Advanced (L3+) & C-Suite", icon: "crown" as const },
 ];
 
@@ -62,7 +62,7 @@ export default function ProgramsCatalog() {
                 <span className="accent">Own Pace.</span>
               </h3>
               <p>
-                Affordable, flexible, and self-paced learning for K12 students and college graduates who are new to AI.
+                Affordable, flexible, and self-paced learning for K12 students and college students who are new to AI.
               </p>
             </div>
             <div className="panel__art"><SceneRecorded /></div>
@@ -74,7 +74,7 @@ export default function ProgramsCatalog() {
               <span>
                 K12 Students{" "}
                 &amp;
-                {" "}College Graduates
+                {" "}College Students
               </span>
             </div>
             <div className="fact">
@@ -85,7 +85,7 @@ export default function ProgramsCatalog() {
             <div className="fact">
               <svg className="i"><use href="#i-clock" /></svg>
               <b>Duration</b>
-              <span>Self-paced (3–6 months)</span>
+              <span>12 Weeks, self-paced</span>
             </div>
             <div className="fact">
               <svg className="i"><use href="#i-target" /></svg>
@@ -144,11 +144,7 @@ export default function ProgramsCatalog() {
               <svg className="i"><use href="#i-user" /></svg>
               <b>For</b>
               <span>
-                Beginners (L1{" "}
-                &amp;
-                {" "}L2){" "}
-                &amp;
-                {" "}career switchers
+                Beginners (L1) &amp; career switchers
               </span>
             </div>
             <div className="fact">
@@ -228,6 +224,11 @@ export default function ProgramsCatalog() {
                 &amp;
                 {" "}board-level leaders
               </span>
+            </div>
+            <div className="fact">
+              <svg className="i"><use href="#i-clock" /></svg>
+              <b>Duration</b>
+              <span>12 Weeks</span>
             </div>
           </div>
           <div className="panel__cta">

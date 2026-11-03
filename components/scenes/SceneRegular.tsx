@@ -70,9 +70,7 @@ export default function SceneRegular() {
           <span>
             Beginners
             <small>
-              L1{" "}
-              &amp;
-              {" "}L2
+              Level 1 (L1)
             </small>
           </span>
         </div>

@@ -55,7 +55,8 @@ public/assets/          illustrations (WebP) and logos
 - **Events:** edit `lib/events.ts`. Past events are marked "Completed" automatically in the browser. `featured: true` puts one in the Explore hero.
 - **Contact details, socials and navigation:** `lib/site.ts`.
 - **12-week tracks:** `lib/programs.ts`.
-- **Enquiry form:** `components/Enquiry.tsx`. It currently opens a pre-filled email to `hello@nunnari.academy`; replace `submit` with a call to your CRM or an API route.
+- **Enquiry / "Schedule A Call" form:** `components/Enquiry.tsx` posts to `app/api/enquiry/route.ts` (validated on both sides, regex in `lib/validate.ts`). Set the `ENQUIRY_WEBHOOK_URL` environment variable in Vercel to forward every submission as JSON to your CRM, Google Sheet (Apps Script), Zapier/Make or Slack. Until it is set, submissions only appear in Vercel → Logs.
+- **Brochures:** put PDFs in `public/brochures/` and set their paths in `lib/programs.ts` (`brochures`). Until then "Download Brochure" opens the enquiry form.
 - **Colours:** tokens at the top of `styles/main.css`, from the brand palette sheet.
 
 ## Motion and performance

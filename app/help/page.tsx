@@ -45,12 +45,12 @@ export default function HelpPage() {
                 <span className="small">+91 90033 13175</span>
               </span>
             </a>
-            <a className="card card--hover spot tile" href="mailto:hello@nunnari.academy">
+            <a className="card card--hover spot tile" href="mailto:enquiry@nunnari.academy">
               <span className="icon-chip"><svg className="i"><use href="#i-mail" /></svg></span>
               <span>
                 <b>Email</b>
                 <br />
-                <span className="small">hello@nunnari.academy</span>
+                <span className="small">enquiry@nunnari.academy</span>
               </span>
             </a>
           </div>

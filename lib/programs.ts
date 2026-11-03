@@ -10,3 +10,13 @@ export const tracks: { title: string; tag: string; icon: IconName; desc: string 
   { title: "Business Analytics with AI", tag: "Business", icon: "briefcase", desc: "Use data and AI-driven insights to guide strategic business decisions and improve outcomes." },
   { title: "Digital Marketing with AI", tag: "Marketing", icon: "rocket", desc: "Leverage AI to create, optimize, and scale digital marketing campaigns with better targeting and performance." },
 ];
+
+/**
+ * Programme brochures (PDF). Drop the file in public/brochures/ and set its path here.
+ * While a path is empty, "Download Brochure" opens the enquiry form so the team can send it.
+ */
+export const brochures: Record<"recorded" | "regular" | "premium", string> = {
+  recorded: "",
+  regular: "",
+  premium: "",
+};

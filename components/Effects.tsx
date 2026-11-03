@@ -99,16 +99,29 @@ export default function Effects() {
       });
     }
 
-    /* live event status (past events) */
+    /* live event status: cards are disabled once the event has started (doc: Explore page) */
     const now = Date.now();
-    $$("[data-date]").forEach((card) => {
-      const past = new Date(card.dataset.end || card.dataset.date || "").getTime() + 3 * 3600e3 < now;
-      if (!past) return;
-      card.classList.add("is-past");
-      const b = card.querySelector<HTMLElement>("[data-status]");
-      if (b) { b.textContent = "Completed"; b.classList.add("badge--past"); b.classList.remove("badge--dot"); }
+    document.querySelectorAll<HTMLElement>("[data-date]").forEach((card) => {
+      const start = new Date(card.dataset.date || "").getTime();
+      const end = new Date(card.dataset.end || card.dataset.date || "").getTime();
+      if (!(now >= start)) return;
+      const ended = now > end;
+      card.classList.add("is-closed");
+      if (ended) card.classList.add("is-past");
+      const badge = card.querySelector<HTMLElement>("[data-status]");
+      if (badge) {
+        badge.textContent = ended ? "Completed" : "Live now";
+        badge.classList.toggle("badge--past", ended);
+        if (ended) badge.classList.remove("badge--dot");
+      }
+      card.querySelectorAll<HTMLButtonElement>("[data-register]").forEach((btn) => {
+        btn.disabled = true;
+        btn.setAttribute("aria-disabled", "true");
+        const lbl = btn.querySelector<HTMLElement>("[data-register-label]");
+        if (lbl) lbl.textContent = ended ? "Event completed" : "Registration closed";
+      });
       const fb = card.querySelector<HTMLElement>("[data-featured-status]");
-      if (fb) fb.textContent = fb.dataset.pastLabel || "Recent Workshop";
+      if (fb) fb.textContent = ended ? (fb.dataset.pastLabel || "Recent Workshop") : "Happening now";
     });
 
     /* add to calendar (.ics) */

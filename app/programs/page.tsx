@@ -55,7 +55,7 @@ export default function ProgramsPage() {
                   <dd>
                     K12 Students{" "}
                     &amp;
-                    {" "}College Graduates
+                    {" "}College Students
                   </dd>
                 </div>
                 <div>
@@ -70,7 +70,7 @@ export default function ProgramsPage() {
                     <svg className="i"><use href="#i-clock" /></svg>
                     Duration
                   </dt>
-                  <dd>Self-paced (3–6 months)</dd>
+                  <dd>12 Weeks, self-paced</dd>
                 </div>
                 <div>
                   <dt>
@@ -99,11 +99,7 @@ export default function ProgramsPage() {
                     For
                   </dt>
                   <dd>
-                    Beginners (L1{" "}
-                    &amp;
-                    {" "}L2){" "}
-                    &amp;
-                    {" "}career switchers
+                    Beginners (L1) &amp; career switchers
                   </dd>
                 </div>
                 <div>
@@ -162,6 +158,13 @@ export default function ProgramsPage() {
                     &amp;
                     {" "}board-level leaders
                   </dd>
+                </div>
+                <div>
+                  <dt>
+                    <svg className="i"><use href="#i-clock" /></svg>
+                    Duration
+                  </dt>
+                  <dd>12 Weeks</dd>
                 </div>
               </dl>
               <Link className="link-arrow" href="/programs/premium">

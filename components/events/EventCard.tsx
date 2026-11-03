@@ -18,7 +18,7 @@ export default function EventCard({ e, variant = "compact" }: { e: EventItem; va
             <p>{e.desc || e.speaker || ""}</p>
             <div className="event__foot">
               <span><Icon name="monitor" />{e.mode} • {e.duration}</span>
-              <button className="event__go" type="button" data-enquire={`Event: ${e.title}`} aria-label={`Ask about ${e.title}`}><Icon name="arrow" /></button>
+              <button className="event__go" type="button" data-register="" data-enquire={`Register: ${e.title}`} aria-label={`Register for ${e.title}`}><Icon name="arrow" /></button>
             </div>
           </>
         ) : (
@@ -30,7 +30,7 @@ export default function EventCard({ e, variant = "compact" }: { e: EventItem; va
               {e.speaker && <span><Icon name="user" />{e.speaker}</span>}
             </div>
             <div className="event__foot">
-              <button className="link-arrow" type="button" data-enquire={`Event: ${e.title}`}>View Details <Icon name="arrow" /></button>
+              <button className="btn btn--primary btn--sm" type="button" data-register="" data-enquire={`Register: ${e.title}`}><span data-register-label="">Register Now</span> <Icon name="arrow" className="i--arrow" /></button>
             </div>
           </>
         )}

@@ -4,6 +4,7 @@ import Split from "@/components/Split";
 import EventArt from "@/components/events/EventArt";
 import ExploreEvents from "@/components/events/ExploreEvents";
 import JumpPills from "@/components/events/JumpPills";
+import AddToCalendar from "@/components/events/AddToCalendar";
 import Testimonials from "@/components/sections/Testimonials";
 import SceneCalendar from "@/components/scenes/SceneCalendar";
 import SceneGlobe from "@/components/scenes/SceneGlobe";
@@ -70,14 +71,11 @@ export default function ExplorePage() {
                 </div>
               </div>
               <div className="cta-actions">
-                <button className="btn btn--primary btn--lg" type="button" data-enquire={`Register: ${featured.title}`} data-magnetic>
-                  Register Now{" "}
+                <button className="btn btn--primary btn--lg" type="button" data-register="" data-enquire={`Register: ${featured.title}`} data-magnetic>
+                  <span data-register-label="">Register Now</span>{" "}
                   <svg className="i i--arrow"><use href="#i-arrow" /></svg>
                 </button>
-                <button className="btn btn--ghost btn--lg" type="button" data-ics="" data-ics-title={featured.title} data-ics-start={featured.start} data-ics-end={featured.end} data-ics-desc={featured.desc}>
-                  <svg className="i"><use href="#i-calendar-plus" /></svg>
-                  <span data-label>Add to Calendar</span>
-                </button>
+                <AddToCalendar title={featured.title} description={featured.desc} start={featured.start} end={featured.end} />
               </div>
             </div>
             <div className="featured__art event__art art" data-tilt><EventArt art={featured.art} /></div>
@@ -98,10 +96,7 @@ export default function ExplorePage() {
               </p>
             </div>
             <div className="saturday__art"><SceneCalendar /></div>
-            <button className="btn btn--primary btn--lg" type="button" data-ics data-ics-allday data-ics-weekly data-ics-title="Nunnari Academy — Free Saturday community session" data-ics-desc="Free community session: meet fellow learners and get a taste of what we build together.">
-              <svg className="i"><use href="#i-calendar-plus" /></svg>
-              <span data-label>Add to Calendar</span>
-            </button>
+            <AddToCalendar weeklySaturday title="Nunnari Academy — Free Saturday community session" description="Free community session: meet fellow learners and get a taste of what we build together." className="btn btn--primary btn--lg" />
           </div>
         </div>
       </section>
@@ -147,10 +142,10 @@ export default function ExplorePage() {
                   Unlock the amazing benefits of joining our community, growing your skills, and building connections.
                 </p>
                 <div data-reveal style={{"--d": ".3s"} as React.CSSProperties}>
-                  <button className="btn btn--primary btn--lg" type="button" data-enquire="Join the Community" data-magnetic>
+                  <a className="btn btn--primary btn--lg" href="https://aitamilnadu.org/" target="_blank" rel="noopener" data-magnetic>
                     Join the Community{" "}
-                    <svg className="i i--arrow"><use href="#i-arrow" /></svg>
-                  </button>
+                    <svg className="i i--arrow-ur"><use href="#i-arrow-ur" /></svg>
+                  </a>
                 </div>
               </div>
               <div className="cta-band__art"><SceneGlobe /></div>

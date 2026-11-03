@@ -96,9 +96,9 @@ export default function Footer() {
           {" "}Nunnari Academy. Made with purpose for curious learners.
         </p>
         <div className="footer__contact">
-          <a href="mailto:hello@nunnari.academy">
+          <a href="mailto:enquiry@nunnari.academy">
             <svg className="i"><use href="#i-mail" /></svg>
-            {" "}hello@nunnari.academy
+            {" "}enquiry@nunnari.academy
           </a>
           <a href="tel:+919003313175">
             <svg className="i"><use href="#i-phone" /></svg>

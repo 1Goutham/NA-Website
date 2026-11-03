@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type React from "react";
 import Link from "next/link";
 import Split from "@/components/Split";
+import BrochureButton from "@/components/ui/BrochureButton";
 import Faq from "@/components/ui/Faq";
 import SceneCode from "@/components/scenes/SceneCode";
 import SceneRegular from "@/components/scenes/SceneRegular";
@@ -22,7 +23,7 @@ const faqCats = [
 ];
 const faq = [
   { q: "Who should join the Regular Programme?", cats: ["program", "eligibility"], a: "The programme is designed for beginners, college students, early learners and early professionals who want to build real skills in AI & ML and work on practical projects." },
-  { q: "Is this programme suitable for complete beginners?", cats: ["program", "eligibility"], a: "Yes. The Regular Programme is built for beginners (L1 & L2) and starts by building a strong foundation in AI & ML before moving on to hands-on projects." },
+  { q: "Is this programme suitable for complete beginners?", cats: ["program", "eligibility"], a: "Yes. The Regular Programme is built for beginners (L1) and starts by building a strong foundation in AI & ML before moving on to hands-on projects." },
   { q: "What is the total duration of the programme?", cats: ["program", "schedule"], a: "12 weeks of guided, hands-on learning with live sessions, projects and mentorship." },
   { q: "Will this be online, offline, or hybrid?", cats: ["program", "schedule"], a: <>The programme is available Online and Offline. <button className="link-arrow" type="button" data-enquire="Regular Programme — format">Talk to our team</button> to find the option that suits you.</> },
   { q: "Which tools will I work with?", cats: ["curriculum"], a: "Python, Pandas, NumPy, Scikit-learn, Matplotlib, Jupyter, VS Code and Git & GitHub." },
@@ -66,9 +67,7 @@ export default function RegularPage() {
                 <div>
                   <b>Beginners</b>
                   <span>
-                    L1{" "}
-                    &amp;
-                    {" "}L2
+                    Level 1 (L1)
                   </span>
                 </div>
               </div>
@@ -89,7 +88,7 @@ export default function RegularPage() {
                 Enroll Now{" "}
                 <svg className="i i--arrow"><use href="#i-arrow" /></svg>
               </button>
-              <a className="btn btn--ghost btn--lg" href="#tools">View Curriculum</a>
+              <BrochureButton program="regular" />
             </div>
           </div>
           <div className="page-hero__art"><SceneCode /></div>
