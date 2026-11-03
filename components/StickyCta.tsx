@@ -39,7 +39,7 @@ export default function StickyCta() {
         <b>Still <span>Confused?</span></b>
         <small>Request a callback from our team.</small>
       </div>
-      <a className="sticky-cta__phone" href={site.callback.href}><Icon name="phone" />{site.callback.label}</a>
+      <a className="sticky-cta__phone" href={site.phone.href}><Icon name="phone" />{site.phone.label}</a>
       <button className="btn btn--primary" type="button" data-enquire="Request a Call">Request a Call <Icon name="arrow-ur" className="i--arrow-ur" /></button>
       <button className="sticky-cta__close" type="button" aria-label="Dismiss" onClick={dismiss}><Icon name="close" /></button>
     </aside>,

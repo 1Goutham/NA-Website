@@ -8,8 +8,6 @@ export const site = {
     "Practical, hands-on AI programs for curious minds – in Tamil and English. Build real skills, create real projects, and be a part of the AI pioneer community.",
   email: "enquiry@nunnari.academy",
   phone: { label: "+91 90033 13175", href: "tel:+919003313175" },
-  callback: { label: "08045579578", href: "tel:+918045579578" },
-  support: { label: "+91 90430 35584", href: "tel:+919043035584", email: "enquiry@nunnari.academy" },
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/company/nunnari-academy/", icon: "linkedin" },
     { label: "X", href: "https://x.com/NunnariLabs", icon: "x" },

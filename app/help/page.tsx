@@ -29,14 +29,6 @@ export default function HelpPage() {
             Reach out to Nunnari Academy support for quick, reliable assistance regarding programs, payments, or platform access.
           </p>
           <div className="grid-3" id="contact" style={{"marginTop": "32px", "gridTemplateColumns": "repeat(auto-fit,minmax(220px,1fr))"} as React.CSSProperties}>
-            <a className="card card--hover spot tile" href="tel:+919043035584">
-              <span className="icon-chip"><svg className="i"><use href="#i-phone" /></svg></span>
-              <span>
-                <b>Support</b>
-                <br />
-                <span className="small">+91 90430 35584</span>
-              </span>
-            </a>
             <a className="card card--hover spot tile" href="tel:+919003313175">
               <span className="icon-chip"><svg className="i"><use href="#i-phone-wave" /></svg></span>
               <span>

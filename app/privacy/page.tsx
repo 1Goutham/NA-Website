@@ -49,7 +49,7 @@ export default function PrivacyPage() {
             <a href="mailto:enquiry@nunnari.academy">enquiry@nunnari.academy</a>
             <br />
             Phone:{" "}
-            <a href="tel:+919043035584">+91 90430 35584</a>
+            <a href="tel:+919003313175">+91 90033 13175</a>
           </p>
         </div>
       </section>
