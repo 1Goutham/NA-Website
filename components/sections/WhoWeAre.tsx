@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { useMotionValueEvent, useScroll } from "motion/react";
 import clsx from "@/lib/clsx";
 
 type Chapter = {
@@ -117,12 +116,23 @@ export default function WhoWeAre() {
   const blocks = useRef<(HTMLElement | null)[]>([]);
   const dashes = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({ target: wrap, offset: ["start 60%", "end 60%"] });
-
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    // write the progress only where it is used (the dashes), so the rest of the section is not restyled
-    dashes.current?.style.setProperty("--story-p", (p * chapters.length).toFixed(3));
-  });
+  // dash progress: chapters scrolled past the 60% line, written only to the dashes element
+  useEffect(() => {
+    const w = wrap.current, d = dashes.current;
+    if (!w || !d) return;
+    let raf = 0, visible = false;
+    const apply = () => {
+      raf = 0;
+      const r = w.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.6 - r.top) / r.height));
+      d.style.setProperty("--story-p", (p * chapters.length).toFixed(3));
+    };
+    const onScroll = () => { if (visible && !raf) raf = requestAnimationFrame(apply); };
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) onScroll(); });
+    io.observe(w);
+    addEventListener("scroll", onScroll, { passive: true });
+    return () => { removeEventListener("scroll", onScroll); io.disconnect(); cancelAnimationFrame(raf); };
+  }, []);
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -136,8 +146,7 @@ export default function WhoWeAre() {
   const go = (i: number) => {
     const el = blocks.current[i];
     if (!el) return;
-    if (window.__lenis) window.__lenis.scrollTo(el, { offset: -innerHeight * 0.3 });
-    else el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   return (

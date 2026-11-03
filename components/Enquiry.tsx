@@ -38,7 +38,6 @@ export default function EnquiryProvider({ children }: { children: ReactNode }) {
     reset();
     setTopic(t || "General enquiry");
     ref.current?.showModal();
-    window.__lenis?.stop();
     setTimeout(() => ref.current?.querySelector<HTMLInputElement>("input[name=name]")?.focus(), 60);
   }, [reset]);
 
@@ -53,7 +52,7 @@ export default function EnquiryProvider({ children }: { children: ReactNode }) {
     };
     document.addEventListener("click", onClick);
     const d = ref.current;
-    const onClose = () => { window.__lenis?.start(); clearTimeout(resetT.current); setTimeout(reset, 300); };
+    const onClose = () => { clearTimeout(resetT.current); setTimeout(reset, 300); };
     d?.addEventListener("close", onClose);
     return () => { document.removeEventListener("click", onClick); d?.removeEventListener("close", onClose); };
   }, [open, reset]);

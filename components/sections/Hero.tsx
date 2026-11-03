@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { useEffect, useRef } from "react";
 import Aurora from "@/components/canvas/Aurora";
 import Icon, { type IconName } from "@/components/Icon";
 
@@ -44,24 +43,41 @@ function TiltCard({ f, i }: { f: (typeof features)[number]; i: number }) {
  */
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const p = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
-  const contentY = useTransform(p, [0, 1], [0, reduce ? 0 : -140]);
-  const contentO = useTransform(p, [0, 0.7], [1, reduce ? 1 : 0]);
-  const contentS = useTransform(p, [0, 1], [1, reduce ? 1 : 0.94]);
-  const bgY = useTransform(p, [0, 1], [0, reduce ? 0 : 120]);
-  const bgS = useTransform(p, [0, 1], [1, reduce ? 1 : 1.12]);
+  const bg = useRef<HTMLDivElement>(null);
+  const inner = useRef<HTMLDivElement>(null);
+
+  // depth on scroll: content lifts and fades faster than the background. One passive listener,
+  // one rAF per frame, and it only runs while the hero is actually on screen.
+  useEffect(() => {
+    const hero = ref.current, b = bg.current, c = inner.current;
+    if (!hero || !b || !c || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0, visible = true, h = hero.offsetHeight;
+    const apply = () => {
+      raf = 0;
+      const p = Math.min(1, Math.max(0, scrollY / h));
+      c.style.transform = `translate3d(0, ${(-140 * p).toFixed(1)}px, 0) scale(${(1 - 0.06 * p).toFixed(4)})`;
+      c.style.opacity = String(Math.max(0, 1 - p / 0.7).toFixed(3));
+      b.style.transform = `translate3d(0, ${(120 * p).toFixed(1)}px, 0) scale(${(1 + 0.12 * p).toFixed(4)})`;
+    };
+    const onScroll = () => { if (visible && !raf) raf = requestAnimationFrame(apply); };
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) onScroll(); });
+    io.observe(hero);
+    const ro = new ResizeObserver(() => { h = hero.offsetHeight; });
+    ro.observe(hero);
+    addEventListener("scroll", onScroll, { passive: true });
+    apply();
+    return () => { removeEventListener("scroll", onScroll); io.disconnect(); ro.disconnect(); cancelAnimationFrame(raf); };
+  }, []);
 
   return (
     <section className="hx" ref={ref} data-hero aria-labelledby="hero-title">
-      <motion.div className="hx__bg" style={{ y: bgY, scale: bgS }}>
+      <div className="hx__bg" ref={bg}>
         <Aurora />
         <div className="hx__fallback" aria-hidden="true" />
         <div className="hx__grid" aria-hidden="true" />
-      </motion.div>
+      </div>
 
-      <motion.div className="container hx__inner" style={{ y: contentY, opacity: contentO, scale: contentS }}>
+      <div className="container hx__inner" ref={inner}>
         <p className="hx__tag">
           <span className="hx__tag-dot" aria-hidden="true" />
           NUNNARI ACADEMY <i>|</i> SCHOOL OF AI
@@ -94,7 +110,7 @@ export default function Hero() {
         <div className="hx__cards">
           {features.map((f, i) => <TiltCard key={f.title} f={f} i={i} />)}
         </div>
-      </motion.div>
+      </div>
 
       <a className="hx__scroll" href="#who-we-are" aria-label="Scroll to Who we are"><span /></a>
     </section>

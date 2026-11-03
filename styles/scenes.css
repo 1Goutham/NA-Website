@@ -124,9 +124,9 @@
 .code__dots { display: flex; gap: 5px; margin-bottom: 2%; }
 .code__dots i { width: 7px; height: 7px; border-radius: 50%; background: rgb(255 255 255 / 25%); }
 .code__dots i:first-child { background: #f472b6; } .code__dots i:nth-child(2) { background: #fbbf24; } .code__dots i:nth-child(3) { background: #34d399; }
-.code__ln { display: flex; gap: 6px; white-space: nowrap; overflow: hidden; width: 0; animation: typeline 7s steps(28, end) infinite; animation-delay: var(--dl, 0s); color: #e5dcff; }
+.code__ln { display: flex; gap: 6px; white-space: nowrap; overflow: hidden; width: var(--w, 100%); clip-path: inset(0 100% 0 0); animation: typeline 7s steps(28, end) infinite; animation-delay: var(--dl, 0s); color: #e5dcff; }
 .code__ln b { color: #c4b5fd; font-weight: 600; } .code__ln em { color: #f0abfc; font-style: normal; } .code__ln u { color: #6ee7b7; text-decoration: none; }
-@keyframes typeline { 0% { width: 0; } 18%, 88% { width: var(--w, 100%); } 100% { width: var(--w, 100%); opacity: 0; } }
+@keyframes typeline { 0% { clip-path: inset(0 100% 0 0); } 18%, 88% { clip-path: inset(0 0 0 0); } 100% { clip-path: inset(0 0 0 0); opacity: 0; } }
 
 /* list card (modules / steps) */
 .mlist { list-style: none; padding: 14px; margin: 0; display: grid; gap: 10px; min-width: clamp(150px, 42cqi, 230px); }
@@ -270,7 +270,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .gl { transition: none; }
-  .code__ln { width: var(--w, 100%); }
+  .code__ln { clip-path: none; }
   .orbit3d__ring, .orbit3d__item > * { animation: none; }
 }
 

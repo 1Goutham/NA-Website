@@ -6,7 +6,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import IconSprite from "@/components/IconSprite";
 import EnquiryProvider from "@/components/Enquiry";
-import SmoothScroll from "@/components/SmoothScroll";
 import Effects from "@/components/Effects";
 import { site } from "@/lib/site";
 
@@ -34,7 +33,7 @@ const orgJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* reveal animations only when JS runs, so content is never hidden without it */}
         <script dangerouslySetInnerHTML={{ __html: 'document.documentElement.classList.add("js")' }} />
@@ -47,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <Footer />
         </EnquiryProvider>
-        <SmoothScroll />
         <Effects />
       </body>
     </html>

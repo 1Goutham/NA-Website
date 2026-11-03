@@ -34,7 +34,7 @@ export default function SceneStairs() {
             <filter id="st-sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="14" floodColor="#4c2ebe" floodOpacity=".35" /></filter>
           </defs>
           <ellipse cx="240" cy="300" rx="210" ry="22" fill="#e5dcff" opacity=".8" />
-          <g filter="url(#st-sh)">
+          <g>
             <g>
               <path d="M30 270h80v30H30z" fill="url(#st-front)" />
               <path d="M30 270l20-14h80l-20 14z" fill="url(#st-top)" />

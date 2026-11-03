@@ -62,7 +62,6 @@ export default function Header() {
   // lock scroll behind the mobile drawer
   useEffect(() => {
     document.documentElement.style.overflow = drawer ? "hidden" : "";
-    if (drawer) window.__lenis?.stop(); else window.__lenis?.start();
   }, [drawer]);
 
   const isDesktop = () => matchMedia("(min-width: 1024px)").matches;

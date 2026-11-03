@@ -40,8 +40,8 @@
 .js [data-split] .w { filter: none !important; }
 @keyframes hx-fade { from { opacity: 0; transform: translate3d(0, 18px, 0); } }
 
-/* page transition: opacity only (no full-page transformed layer) */
-@keyframes page-in { from { opacity: 0; } }
+/* no full-page fade on navigation: it promotes the whole (very tall) page to one layer */
+.page-enter { animation: none !important; }
 
 /* don't keep dozens of layers promoted forever */
 .gl { will-change: auto; }
@@ -51,3 +51,32 @@
 
 /* inactive programme tabs: keep their scenes still */
 .panel:not(.is-active), .panel:not(.is-active) * { animation-play-state: paused !important; }
+
+/* ---- jank fixes (measured with 4x CPU throttle) ---- */
+
+/* Event card art: no per-stroke glow filters, and the little SVG animations only run on hover.
+   Animating anything inside an SVG repaints the whole drawing every frame. */
+.event__art svg .ln, .event__art svg .fill-p { filter: none !important; }
+.event__art svg .ln { stroke: #e4dcff; stroke-width: 2; }
+.event__art svg, .event__art svg * { animation-play-state: paused !important; }
+.event:hover .event__art svg, .event:hover .event__art svg *,
+.event:focus-within .event__art svg, .event:focus-within .event__art svg * { animation-play-state: running !important; }
+.event__art .stars { animation: none; }
+
+/* Hero CTA light: rotate a pre-drawn conic gradient (GPU transform) instead of animating a CSS variable */
+.hx__cta { overflow: hidden; }
+.hx__cta-beam { inset: 0; padding: 0; background: none !important; -webkit-mask: none !important; mask: none !important; animation: none !important; border-radius: inherit; overflow: hidden; z-index: -1; }
+.hx__cta-beam::before { content: ""; position: absolute; left: 50%; top: 50%; width: 300%; aspect-ratio: 1; translate: -50% -50%;
+  background: conic-gradient(from 0deg, transparent 0 72%, rgb(255 255 255 / 55%) 82%, transparent 92%); animation: beam-rot 3.2s linear infinite; }
+.hx__cta-beam::after { content: ""; position: absolute; inset: 1.5px; border-radius: inherit; background: var(--primary); }
+.hx__cta:hover .hx__cta-beam::after { background: var(--primary-600); }
+@keyframes beam-rot { to { rotate: 360deg; } }
+
+/* only the hero headline sweeps; keep it short and rare */
+.hx__shine { animation-duration: 7s; }
+
+/* the roadmap ring counter animates a custom property on the main thread; step it, don't tween */
+.ring { animation-timing-function: steps(11, end); }
+
+/* programme tracks revealed by "Explore All Programmes" */
+.track--enter { animation: rise .6s var(--ease) backwards; animation-delay: var(--d, 0ms); }

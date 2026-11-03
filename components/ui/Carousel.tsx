@@ -63,7 +63,7 @@ export default function Carousel({ children, label, nav = "side", renderControls
           <Icon name="arrow-left" />
         </button>
       )}
-      <div className="carousel__track" ref={track} id={trackId} tabIndex={0} role="region" aria-label={label} data-lenis-prevent-wheel="">
+      <div className="carousel__track" ref={track} id={trackId} tabIndex={0} role="region" aria-label={label}>
         {children}
       </div>
       {nav === "side" && (

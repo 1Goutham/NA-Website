@@ -152,7 +152,7 @@ export default function Effects() {
     }));
 
     $$("[data-to-top]").forEach((b) => on(b, "click", () => {
-      if (window.__lenis) window.__lenis.scrollTo(0); else scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+      scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
     }));
 
     const vis = () => document.body.classList.toggle("is-paused", document.hidden);

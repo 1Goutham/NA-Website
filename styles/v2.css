@@ -8,10 +8,7 @@
 .page-enter { animation: page-in .7s cubic-bezier(.22, 1, .36, 1) backwards; }
 @keyframes page-in { from { opacity: 0; transform: translate3d(0, 14px, 0); } }
 
-/* Lenis */
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
+
 
 /* ---------- Who we are: scroll story ---------- */
 .story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: start; }

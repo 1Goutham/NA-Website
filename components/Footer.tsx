@@ -33,18 +33,18 @@ export default function Footer() {
         <nav className="footer__col" aria-label="Programmes">
           <h3>Programmes</h3>
           <ul>
-            <li><Link href="/programs/recorded">Recorded Programmes</Link></li>
-            <li><Link href="/programs/regular">Regular Programmes</Link></li>
-            <li><Link href="/programs/premium">Premium Programmes</Link></li>
+            <li><Link prefetch={false} href="/programs/recorded">Recorded Programmes</Link></li>
+            <li><Link prefetch={false} href="/programs/regular">Regular Programmes</Link></li>
+            <li><Link prefetch={false} href="/programs/premium">Premium Programmes</Link></li>
             <li><hr /></li>
             <li>
-              <Link href="/partner/institutions">
+              <Link prefetch={false} href="/partner/institutions">
                 Institutional Programmes
                 <small>Academia (MoU)</small>
               </Link>
             </li>
             <li>
-              <Link href="/partner/corporates">
+              <Link prefetch={false} href="/partner/corporates">
                 Corporate Programs
                 <small>
                   For Teams{" "}
@@ -58,34 +58,34 @@ export default function Footer() {
         <nav className="footer__col" aria-label="Explore">
           <h3>Explore</h3>
           <ul>
-            <li><Link href="/explore#events">Workshops</Link></li>
-            <li><Link href="/explore#testimonials">Testimonials</Link></li>
-            <li><Link href="/explore#community">Community</Link></li>
+            <li><Link prefetch={false} href="/explore#events">Workshops</Link></li>
+            <li><Link prefetch={false} href="/explore#testimonials">Testimonials</Link></li>
+            <li><Link prefetch={false} href="/explore#community">Community</Link></li>
           </ul>
         </nav>
         <nav className="footer__col" aria-label="Home">
           <h3>Home</h3>
           <ul>
-            <li><Link href="/#who-we-are">Our Mission</Link></li>
+            <li><Link prefetch={false} href="/#who-we-are">Our Mission</Link></li>
             <li>
-              <Link href="/#backed-by">
+              <Link prefetch={false} href="/#backed-by">
                 Nunnari Labs{" "}
                 &amp;
                 {" "}DeepWeaver
               </Link>
             </li>
-            <li><Link href="/#learners-partners">Partners</Link></li>
-            <li><Link href="/#programs">Programs</Link></li>
+            <li><Link prefetch={false} href="/#learners-partners">Partners</Link></li>
+            <li><Link prefetch={false} href="/#programs">Programs</Link></li>
           </ul>
         </nav>
         <nav className="footer__col" aria-label="Support">
           <h3>Support</h3>
           <ul>
-            <li><Link href="/help">Help Center</Link></li>
-            <li><Link href="/help#contact">Contact Us</Link></li>
-            <li><Link href="/terms">Terms of Service</Link></li>
-            <li><Link href="/privacy">Privacy Policy</Link></li>
-            <li><Link href="/refund">Refund Policy</Link></li>
+            <li><Link prefetch={false} href="/help">Help Center</Link></li>
+            <li><Link prefetch={false} href="/help#contact">Contact Us</Link></li>
+            <li><Link prefetch={false} href="/terms">Terms of Service</Link></li>
+            <li><Link prefetch={false} href="/privacy">Privacy Policy</Link></li>
+            <li><Link prefetch={false} href="/refund">Refund Policy</Link></li>
           </ul>
         </nav>
       </div>

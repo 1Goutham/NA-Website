@@ -1,7 +1,7 @@
 # Nunnari Academy — Website
 
 Next.js (App Router, TypeScript) site for Nunnari Academy — School of AI.
-White-and-violet design system, smooth scrolling, micro-interactions and animated illustrations built in CSS, SVG and canvas.
+White-and-violet design system, micro-interactions and animated illustrations built in CSS, SVG and canvas.
 
 ## Run it
 
@@ -36,7 +36,6 @@ app/                    routes (page.tsx per route), root layout, programs/layou
 components/
   Header, Footer, Mark, Icon, IconSprite
   Enquiry.tsx           site-wide enquiry dialog (any element with data-enquire="Topic" opens it)
-  SmoothScroll.tsx      Lenis inertia scrolling
   Effects.tsx           reveals, counters, spotlight, magnetic buttons, scene parallax, .ics, event status
   Split.tsx             headings that animate word by word
   StickyCta.tsx         floating "Still Confused?" bar — programme pages only
@@ -62,8 +61,9 @@ public/assets/          illustrations (WebP) and logos
 ## Motion and performance
 
 - Every page is static HTML; JavaScript only adds interaction (progressive enhancement).
-- Smooth scrolling uses Lenis (light inertia). Animations use `transform` and `opacity`; loops and canvases pause off screen and when the tab is hidden, and run at ~40fps (the aurora drops its resolution automatically on slow devices).
-- `styles/perf.css` keeps it smooth: no live backdrop blur, no blurred animated shapes, no background-position animations, and only the elements that move on scroll get their own GPU layers.
+- Scrolling is the browser's native scrolling (runs on the compositor thread, so it never freezes when JavaScript is busy). Animations use `transform` and `opacity`; loops and canvases pause off screen and when the tab is hidden, and run at ~40fps (the aurora drops its resolution automatically on slow devices).
+- No animation library: hero depth, story progress and list entrances are a few lines of plain JS/CSS.
+- `styles/perf.css` keeps it smooth: event-card artwork only animates on hover, no SVG filters on moving art, no layout-triggering animations, no full-page fade on navigation, no live backdrop blur, no blurred animated shapes, no background-position animations, and only the elements that move on scroll get their own GPU layers.
 - All motion is turned off for visitors with `prefers-reduced-motion`.
 - Fonts (Inter, Inter Tight) are self-hosted via Fontsource, so there are no requests to Google at runtime or build time.
 - Images go through `next/image` (AVIF/WebP, responsive sizes, lazy loading).
