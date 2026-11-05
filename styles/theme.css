@@ -242,7 +242,9 @@ a.card:hover, .card--link:hover { transform: translateY(-3px); }
 .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 200px; z-index: -1; background: linear-gradient(180deg, transparent, var(--bg)); pointer-events: none; }
 .hero__inner { display: grid; justify-items: center; gap: 28px; will-change: transform, opacity; }
 .hero__inner .pill { justify-self: center; }
-.hero h1 { max-width: 15ch; }
+.hero h1 { max-width: none; font-size: clamp(2.4rem, 6vw, 4.7rem); }
+.hero .br-m { display: none; }
+@media (max-width: 720px) { .hero .br-m { display: inline; } }
 .hero h1 .line { display: block; }
 .hero .lead { max-width: 640px; text-align: center; }
 .hero .lead strong { color: var(--text); font-weight: 500; }
@@ -595,22 +597,12 @@ dialog.modal[open] { animation: in-up .35s var(--ease); }
 .event .art--dark { border-bottom-color: rgb(20 15 54 / 25%); }
 
 /* ---------- 3D scenes: light stage ---------- */
-.art--3d { background: radial-gradient(100% 90% at 50% 0%, #efe9ff 0%, #f7f4ff 55%, #fdfcff 100%); }
-.art--3d::before { width: 70%; background: radial-gradient(circle, rgb(139 108 255 / 18%), transparent 65%); }
-.art--3d .art__floor { height: 48%; opacity: .7; }
-.art--3d svg { inset: 4%; width: 92%; height: 92%; }
-.art--3d .float, .art--3d .float-sm { transform-box: view-box; }
-
-/* ---------- real-time 3D panels ---------- */
-.art--3d { cursor: grab; touch-action: pan-y; }
-.art--3d.is-grabbing { cursor: grabbing; }
-.art3d__canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity .8s var(--ease); }
-.art--3d.is-3d-ready .art3d__canvas { opacity: 1; }
-.art--3d .art__poster { transition: opacity .6s var(--ease); }
-.art--3d.is-3d-ready .art__poster { opacity: 0; }
-.art--3d::after { content: "Drag to rotate"; position: absolute; right: 14px; bottom: 12px; font-size: .72rem; font-weight: 500; color: var(--dim); background: rgb(255 255 255 / 80%); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s var(--ease); pointer-events: none; }
-.art--3d.is-3d-ready:hover::after { opacity: 1; transform: none; }
-@media (hover: none) { .art--3d::after { display: none; } }
+/* particle illustration panels (lib/particles) */
+.art--fx { background: radial-gradient(100% 90% at 50% 0%, #efe9ff 0%, #f7f4ff 55%, #fdfcff 100%); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.art--fx::before { width: 70%; background: radial-gradient(circle, rgb(139 108 255 / 16%), transparent 65%); }
+.art--fx .art__floor { height: 48%; opacity: .55; }
+.fx__canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .6s var(--ease); }
+.fx__canvas.is-on { opacity: 1; }
 
 /* site-wide entrance for blocks tagged automatically below the fold (see Effects) */
 .js [data-auto-reveal] { opacity: 0; transform: translate3d(0, 26px, 0) scale(.985); transition: opacity .9s var(--ease), transform 1s var(--ease), border-color .3s, box-shadow .4s var(--ease); transition-delay: var(--ad, 0s); }

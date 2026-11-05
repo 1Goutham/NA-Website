@@ -1,7 +1,7 @@
 # Nunnari Academy — Website
 
 Next.js (App Router, TypeScript) site for Nunnari Academy — School of AI.
-Light theme in the brand ink-violet tones, one brand violet. Workshop cards use dark line-art; every other panel is an interactive real-time 3D scene.
+Light theme in the brand ink-violet tones, one brand violet. Workshop cards use dark line-art; every other panel is an interactive particle illustration.
 
 ## Run it
 
@@ -35,7 +35,7 @@ app/                     one folder per route; programs/layout.tsx adds the stic
 content/workshops/       workshop markdown files
 components/
   ui/Blocks.tsx          the shared page parts: PageHero, Head (section heading), Card, Cta
-  ui/Art.tsx             illustration panel: line art (lib/art.ts) or 3D (ui/Scene3D.tsx → lib/three/scenes.ts)
+  ui/Art.tsx             illustration panel: line art (lib/art.ts) or particles (ui/Particles.tsx → lib/particles)
   templates/             ProgramPage, PartnerPage, LegalPage: pages of the same kind share one template
   sections/              home sections (Hero, WhyCards, WhoWeAre, Company, Impact, ProgramsCatalog …)
   events/                workshop card, carousel, list, spotlight, YouTube, add-to-calendar
@@ -58,5 +58,5 @@ public/assets/           brand logos, partner college logos, illustrations
 
 - Every page is static HTML. Native scrolling. No animation library.
 - The hero background is a WebGL shader rendered at low resolution. It pauses off screen and falls back to CSS when WebGL is unavailable.
-- 3D scenes load only near the viewport, hold still while the page scrolls, and stop off screen. A static drawing shows until they are ready, and stays if WebGL is unavailable.
+- Particle illustrations are one WebGL draw call each, load only near the viewport, rest while the page scrolls, and stop off screen. Without WebGL they draw once as a still image.
 - Line-art animations pause off screen. All motion is off for visitors with `prefers-reduced-motion`.

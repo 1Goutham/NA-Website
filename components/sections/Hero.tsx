@@ -42,7 +42,7 @@ export default function Hero() {
         <h1 className="t-display" id="hero-title">
           <span className="line" data-in="" style={{ "--d": ".15s" } as React.CSSProperties}>Learn AI.</span>
           <span className="line" data-in="" style={{ "--d": ".28s" } as React.CSSProperties}>
-            <span className="grad">Create what doesn’t exist yet.</span>
+            <span className="grad">Create what<br className="br-m" /> doesn’t exist yet.</span>
           </span>
         </h1>
         <p className="lead" data-in="" style={{ "--d": ".45s" } as React.CSSProperties}>
