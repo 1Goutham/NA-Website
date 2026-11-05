@@ -1,7 +1,7 @@
 # Nunnari Academy — Website
 
 Next.js (App Router, TypeScript) site for Nunnari Academy — School of AI.
-Dark ink-violet theme, one brand violet, and a single line-art illustration style used on every page.
+Light theme in the brand ink-violet tones, one brand violet, and a single line-art illustration style used on every page.
 
 ## Run it
 

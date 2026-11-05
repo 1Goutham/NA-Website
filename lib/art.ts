@@ -20,7 +20,7 @@ const workshopArts: Record<string, string> = {
     <g class="ln"><path d="M104 172V110h112v62"/><path d="M96 110l10-22h108l10 22z" class="fill-soft"/>
       <path d="M118 88l-4 22m24-22-2 22m24-22v22m22-22 2 22m22-22 4 22"/>
       <rect x="120" y="128" width="36" height="44" rx="3"/><rect x="170" y="128" width="32" height="24" rx="3"/></g>
-    <g class="float"><circle class="ln fill-soft" cx="160" cy="58" r="20"/><text x="160" y="64" text-anchor="middle" fill="#fff" font-size="15" font-weight="600" font-family="Inter,sans-serif">AI</text>
+    <g class="float"><circle class="ln fill-soft" cx="160" cy="58" r="20"/><text x="160" y="64" text-anchor="middle" fill="#6c3bff" font-size="15" font-weight="600" font-family="Inter,sans-serif">AI</text>
       <circle class="ln pulse" cx="160" cy="58" r="20" style="fill:none"/></g>
     <g class="float" style="--d:-2s"><rect class="ln fill-soft" x="236" y="54" width="46" height="38" rx="8"/>
       <rect class="fill-p grow" x="246" y="74" width="5" height="10" style="--d:-.4s"/><rect class="fill-p grow" x="255" y="68" width="5" height="16" style="--d:-.8s"/><rect class="fill-p grow" x="264" y="62" width="5" height="22" style="--d:-1.2s"/></g>
@@ -34,10 +34,10 @@ const workshopArts: Record<string, string> = {
     <g class="float" style="--d:-2s"><rect class="ln fill-soft" x="250" y="96" width="36" height="36" rx="10"/><ellipse class="ln" cx="268" cy="106" rx="9" ry="3"/><path class="ln" d="M259 106v14c0 2 4 3 9 3s9-1 9-3v-14"/></g>
     <path class="ln-soft dash" d="M80 60c20 0 20 20 40 14M244 54c-20 0-24 14-40 16"/>`,
   graph: `
-    <g class="ln"><text x="90" y="44" text-anchor="middle" fill="#e5dcff" font-size="15" font-weight="600" letter-spacing="2" font-family="Inter,sans-serif">LOOP</text>
-      <text x="230" y="44" text-anchor="middle" fill="#e5dcff" font-size="15" font-weight="600" letter-spacing="2" font-family="Inter,sans-serif">GRAPH</text>
+    <g class="ln"><text x="90" y="44" text-anchor="middle" fill="#4b2bc9" font-size="15" font-weight="600" letter-spacing="2" font-family="Inter,sans-serif">LOOP</text>
+      <text x="230" y="44" text-anchor="middle" fill="#4b2bc9" font-size="15" font-weight="600" letter-spacing="2" font-family="Inter,sans-serif">GRAPH</text>
       <g class="spin" style="animation-duration:6s"><path d="M90 78a32 32 0 1 1-30 21" /><path d="M54 92l6 8 8-5"/></g>
-      <text x="160" y="118" text-anchor="middle" fill="#bda7ff" font-size="14" font-weight="600" font-family="Inter,sans-serif">VS</text>
+      <text x="160" y="118" text-anchor="middle" fill="#8b6cff" font-size="14" font-weight="600" font-family="Inter,sans-serif">VS</text>
       <path d="M230 80l-26 26m26-26 26 26m-26-26v44m-26-18 26 18 26-18"/>
       <circle class="fill-soft" cx="230" cy="80" r="7"/><circle class="fill-soft" cx="204" cy="106" r="7"/><circle class="fill-soft" cx="256" cy="106" r="7"/><circle class="fill-soft" cx="230" cy="124" r="7"/>
       <circle class="pulse" cx="230" cy="80" r="7" style="fill:none"/><circle class="pulse" cx="230" cy="124" r="7" style="fill:none;--d:1.3s"/></g>`,
@@ -47,14 +47,14 @@ const workshopArts: Record<string, string> = {
       <rect x="224" y="76" width="56" height="48" rx="10" class="fill-soft"/><path d="M240 100l8 8 16-16"/>
       <circle class="pulse" cx="160" cy="100" r="26" style="fill:none"/></g>
     <path class="ln dash" d="M98 100h34M188 100h34"/>
-    <g fill="#e5dcff" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="1.5"><text x="68" y="146">GENERATE</text><text x="160" y="146">REASON</text><text x="252" y="146">ACT</text></g>`,
+    <g fill="#4b2bc9" font-size="10" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="1.5"><text x="68" y="146">GENERATE</text><text x="160" y="146">REASON</text><text x="252" y="146">ACT</text></g>`,
   stack: `
     <g class="ln">
       <g class="float" style="--d:0s"><path class="fill-soft" d="M160 52l70 26-70 26-70-26z"/></g>
       <g class="float" style="--d:-.6s"><path d="M90 102l70 26 70-26" /></g>
       <g class="float" style="--d:-1.2s"><path d="M90 126l70 26 70-26"/></g>
     </g>
-    <g fill="#e5dcff" font-size="9" font-family="Inter,sans-serif" letter-spacing="1.5"><text x="236" y="80">UI</text><text x="236" y="106">API</text><text x="236" y="130">DATA</text></g>
+    <g fill="#4b2bc9" font-size="9" font-family="Inter,sans-serif" letter-spacing="1.5"><text x="236" y="80">UI</text><text x="236" y="106">API</text><text x="236" y="130">DATA</text></g>
     <g class="float" style="--d:-2s"><circle class="ln fill-soft" cx="62" cy="52" r="16"/><path class="ln" d="M62 44v16m-8-8h16"/><circle class="ln pulse" cx="62" cy="52" r="16" style="fill:none"/></g>`,
 };
 
@@ -63,7 +63,7 @@ const pageArts: Record<string, string> = {
   recorded: `
     <g class="ln-soft"><path d="M40 176h240"/></g>
     <g class="ln"><rect x="92" y="54" width="136" height="88" rx="8" class="fill-soft"/><path d="M80 142h160l-10 14H90z"/>
-      <circle cx="160" cy="98" r="18" class="fill-p" style="stroke:none"/><path d="M155 89l14 9-14 9z" fill="#0b0920" stroke="none"/>
+      <circle cx="160" cy="98" r="18" class="fill-p" style="stroke:none"/><path d="M155 89l14 9-14 9z" fill="#ffffff" stroke="none"/>
       <path d="M106 128h108" class="ln-soft"/><path class="la-grow" d="M106 128h44" style="stroke-width:3"/></g>
     <g class="float" style="--d:-1.5s"><rect class="ln fill-soft" x="34" y="44" width="40" height="40" rx="10"/><path class="ln" d="M46 58l-6 6 6 6m16-12 6 6-6 6"/></g>
     <g class="float" style="--d:-3s"><rect class="ln fill-soft" x="246" y="56" width="42" height="46" rx="10"/><path class="ln" d="M256 70h22M256 80h16M256 90h20"/></g>`,
@@ -72,7 +72,7 @@ const pageArts: Record<string, string> = {
     <path class="ln dash" d="M30 160 C 90 160, 80 100, 140 104 S 210 150, 250 116 S 286 62, 294 54"/>
     <g class="ln"><circle class="fill-soft" cx="30" cy="160" r="7"/><circle class="fill-soft" cx="140" cy="104" r="7"/><circle class="fill-soft" cx="250" cy="116" r="7"/></g>
     <g><circle class="fill-p" cx="294" cy="54" r="9"/><circle class="ln pulse" cx="294" cy="54" r="9" style="fill:none"/></g>
-    <g fill="#c9bcff" font-size="9" font-family="Inter,sans-serif" letter-spacing="1.4" text-anchor="middle"><text x="30" y="182">WEEK 1</text><text x="140" y="126">LEARN</text><text x="250" y="138">BUILD</text><text x="286" y="36">WEEK 12</text></g>`,
+    <g fill="#4b2bc9" font-size="9" font-family="Inter,sans-serif" letter-spacing="1.4" text-anchor="middle"><text x="30" y="182">WEEK 1</text><text x="140" y="126">LEARN</text><text x="250" y="138">BUILD</text><text x="286" y="36">WEEK 12</text></g>`,
   premium: `
     <g class="ln-soft"><path d="M40 176h240"/></g>
     <g class="ln"><rect x="92" y="130" width="38" height="46" rx="6" class="fill-soft"/><rect x="141" y="100" width="38" height="76" rx="6" class="fill-soft"/><rect x="190" y="70" width="38" height="106" rx="6" class="fill-soft"/></g>
@@ -103,8 +103,8 @@ const pageArts: Record<string, string> = {
   saturday: `
     <g class="float-sm"><rect class="ln fill-soft" x="110" y="40" width="100" height="112" rx="14"/>
       <path class="ln" d="M110 72h100"/><path class="ln" d="M136 32v18M184 32v18" style="stroke-width:3"/>
-      <text x="160" y="124" text-anchor="middle" font-size="26" font-weight="700" font-family="Inter,sans-serif" fill="#e9e3ff" letter-spacing="1">SAT</text>
-      <text x="160" y="140" text-anchor="middle" font-size="8" font-family="Inter,sans-serif" fill="#a99cf0" letter-spacing="2">FREE SESSION</text></g>
+      <text x="160" y="124" text-anchor="middle" font-size="26" font-weight="700" font-family="Inter,sans-serif" fill="#4b2bc9" letter-spacing="1">SAT</text>
+      <text x="160" y="140" text-anchor="middle" font-size="8" font-family="Inter,sans-serif" fill="#8b6cff" letter-spacing="2">FREE SESSION</text></g>
     <g class="ln-soft"><path d="M60 176h200"/></g>
     <circle class="fill-p" cx="226" cy="58" r="4"/><circle class="ln pulse" cx="226" cy="58" r="8" style="fill:none"/>`,
 };

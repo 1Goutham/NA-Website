@@ -15,7 +15,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer__grid">
         <div className="footer__brand">
-          <Image src="/assets/brand/academy-horizontal-white.png" alt="Nunnari Academy" width={617} height={216} />
+          <Image src="/assets/brand/academy-horizontal-ink.png" alt="Nunnari Academy" width={617} height={216} />
           <p>Practical AI learning in English and Tamil, and a pioneering AI community that builds together.</p>
           <div className="socials">
             {site.socials.map((s) => <a key={s.href} href={s.href} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.icon} /></a>)}

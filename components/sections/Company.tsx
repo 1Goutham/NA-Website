@@ -25,9 +25,9 @@ export default function Company() {
           <div className="company__partner" data-reveal="">
             <span className="eyebrow">Exclusive partnership</span>
             <div className="company__logos">
-              <Image src="/assets/brand/nunnari-labs-white.png" alt="Nunnari Labs" width={274} height={322} style={{ height: 64, width: "auto" }} />
+              <Image src="/assets/brand/nunnari-labs-ink.png" alt="Nunnari Labs" width={274} height={322} style={{ height: 64, width: "auto" }} />
               <span className="x" aria-hidden="true">×</span>
-              <Image src="/assets/brand/deepweaver-white.png" alt="DeepWeaver" width={480} height={94} style={{ height: 34, width: "auto" }} />
+              <Image src="/assets/logos/deepweaver.webp" alt="DeepWeaver" width={560} height={110} style={{ height: 34, width: "auto" }} />
             </div>
             <p>Nunnari Labs and DeepWeaver operate as one delivery team across India and Australia: one project history, one governance layer, no hand-offs between companies.</p>
           </div>
@@ -38,7 +38,7 @@ export default function Company() {
               <p>Tamil for “intelligence”. It’s where our name comes from.</p>
             </div>
             <div className="company__tile" data-reveal="" style={{ "--d": ".08s" } as React.CSSProperties}>
-              <Image src="/assets/brand/deepweaver-white.png" alt="DeepWeaver" width={480} height={94} />
+              <Image src="/assets/logos/deepweaver.webp" alt="DeepWeaver" width={560} height={110} />
               <p>Weaving human-led AI into the enterprise fabric.</p>
             </div>
           </div>
