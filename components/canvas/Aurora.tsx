@@ -85,11 +85,11 @@ void main(){
   float rib = sin(n * 2.4 + p.x * 1.3 + p.y * 0.9 + t * 2.0);
   float ribbon = smoothstep(0.35, 1.0, rib) * 0.75 + smoothstep(0.9, 1.0, rib) * 0.35;
 
-  vec3 base  = vec3(0.984, 0.980, 1.000);  // #FBFAFF
-  vec3 lav   = vec3(0.925, 0.898, 1.000);  // #ECE5FF
+  vec3 base  = vec3(0.969, 0.969, 0.980);  // #F7F7FA (--bg)
+  vec3 lav   = vec3(0.925, 0.910, 0.980);  // #ECE8FA
   vec3 soft  = vec3(0.780, 0.722, 1.000);  // #C7B8FF
   vec3 light = vec3(0.545, 0.424, 1.000);  // #8B6CFF
-  vec3 prim  = vec3(0.424, 0.231, 1.000);  // #6C3BFF
+  vec3 prim  = vec3(0.357, 0.180, 0.910);  // #5B2EE8
   vec3 plum  = vec3(0.608, 0.361, 0.965);  // #9B5CF6
 
   vec3 col = mix(base, lav, smoothstep(-0.7, 0.9, n));

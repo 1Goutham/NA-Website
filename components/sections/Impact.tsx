@@ -16,7 +16,7 @@ function LineChart() {
     <figure className="card chart-card linechart" data-inview="">
       <h3>Training &amp; speaking engagements per year</h3>
       <svg viewBox="0 0 640 236" role="img" aria-label={data.map(([y, v]) => `${y}: ${v}`).join(", ")}>
-        <defs><linearGradient id="lc-grad" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#9f88ff" stopOpacity=".35" /><stop offset="1" stopColor="#9f88ff" stopOpacity="0" /></linearGradient></defs>
+        <defs><linearGradient id="lc-grad" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#5b2ee8" stopOpacity=".18" /><stop offset="1" stopColor="#5b2ee8" stopOpacity="0" /></linearGradient></defs>
         <g className="grid"><line x1="20" x2="620" y1="200" y2="200" /></g>
         <path className="area" d={`${d} L${pts.at(-1)![0]} 200 L${pts[0][0]} 200Z`} />
         <path className="line" pathLength={1} d={d} />

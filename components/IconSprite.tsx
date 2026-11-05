@@ -4,8 +4,8 @@ export default function IconSprite() {
     <svg xmlns="http://www.w3.org/2000/svg" style={{"position": "absolute", "width": "0", "height": "0", "overflow": "hidden"} as React.CSSProperties} aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="ig" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#8b6cff" />
-          <stop offset="1" stopColor="#4b22d6" />
+          <stop offset="0" stopColor="#7a5af5" />
+          <stop offset="1" stopColor="#4a1fd2" />
         </linearGradient>
         <linearGradient id="ig-light" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#fff" />

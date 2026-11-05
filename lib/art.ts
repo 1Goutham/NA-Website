@@ -1,4 +1,4 @@
-/** Workshop line art (320×200), drawn light-on-dark for the dark workshop panels. */
+/** Workshop line art (320×200): the no-WebGL fallback drawn under the 3D model (lib/scene). */
 export const workshopArts: Record<string, string> = {
   robot: `
     <g class="ln-soft"><path d="M40 170h240"/><ellipse cx="160" cy="170" rx="70" ry="10"/></g>

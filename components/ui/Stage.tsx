@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-/** Mounts the particle illustration into its parent panel once the panel nears the viewport. */
-export default function Particles({ name }: { name: string }) {
+/** Mounts the 3D model into its parent panel once the panel nears the viewport. */
+export default function Stage({ name }: { name: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const host = ref.current?.parentElement;
@@ -13,10 +13,13 @@ export default function Particles({ name }: { name: string }) {
       if (!e.isIntersecting) return;
       io.disconnect();
       try {
-        const { mount } = await import("@/lib/particles/engine");
+        const { mount } = await import("@/lib/scene/stage");
         if (!cancelled) dispose = mount(host, name);
-      } catch { /* the panel keeps its plain background */ }
-    }, { rootMargin: "250px" });
+      } catch (err) {
+        // the panel keeps its still fallback
+        if (process.env.NODE_ENV !== "production") console.error(err);
+      }
+    }, { rootMargin: "300px" });
     io.observe(host);
     return () => { cancelled = true; io.disconnect(); dispose?.(); };
   }, [name]);
