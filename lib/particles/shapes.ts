@@ -3,7 +3,7 @@
  * into a meaningful shape: flat drawings are sampled from a 2D canvas and given a little depth;
  * the gem and the globe are true 3D solids that turn slowly.
  *
- * Coordinates: x ≈ -1.6…1.6, y ≈ -1…1, z small. `acc` marks accent points (drawn in the second colour).
+ * Coordinates: x ≈ -1.6…1.6, y ≈ -1…1, z small. `acc`: 0 base, 1 accent, 2/3 back layer (base/accent), 4 dust.
  */
 export type Shape = { pos: Float32Array; acc: Float32Array; n: number; spin: number; tilt: number };
 
@@ -27,8 +27,11 @@ const rr = (c: Ctx, x: number, y: number, w: number, h: number, r: number) => {
 const poly = (c: Ctx, pts: number[]) => { c.beginPath(); c.moveTo(pts[0], pts[1]); for (let i = 2; i < pts.length; i += 2) c.lineTo(pts[i], pts[i + 1]); };
 const cut = (c: Ctx, fn: () => void) => { c.globalCompositeOperation = "destination-out"; fn(); c.globalCompositeOperation = "source-over"; };
 
-/** Sample n points from a 2D drawing (blue = base, red = accent). */
-function fromDrawing(draw: (c: Ctx) => void, n: number, depth: number, seed: number) {
+/**
+ * Turn a 2D drawing (blue = base, red = accent) into an even hexagonal dot lattice (crisp, like a
+ * halftone), plus a fainter back layer for depth and a little drifting dust around it.
+ */
+function fromDrawing(draw: (c: Ctx) => void, target: number, seed: number) {
   const r = rng(seed);
   const cv = document.createElement("canvas");
   cv.width = W; cv.height = H;
@@ -36,17 +39,36 @@ function fromDrawing(draw: (c: Ctx) => void, n: number, depth: number, seed: num
   c.lineCap = "round"; c.lineJoin = "round";
   draw(c);
   const d = c.getImageData(0, 0, W, H).data;
-  const idx: number[] = [];
-  for (let i = 0; i < W * H; i++) if (d[i * 4 + 3] > 150) idx.push(i);
-  const pos = new Float32Array(n * 3), acc = new Float32Array(n);
-  for (let k = 0; k < n; k++) {
-    const i = idx[Math.floor(r() * idx.length)] ?? 0, px = i % W, py = (i / W) | 0;
-    pos[k * 3] = ((px + r()) / W - 0.5) * 3.2;
-    pos[k * 3 + 1] = -((py + r()) / H - 0.5) * 2;
-    pos[k * 3 + 2] = (r() * 2 - 1) * depth;
-    acc[k] = d[i * 4] > d[i * 4 + 2] ? 1 : 0;
+  let area = 0;
+  for (let i = 3; i < d.length; i += 4) if (d[i] > 150) area++;
+  const step = Math.max(2.2, Math.sqrt(area / (target * 0.866)));
+  const front: number[] = [], facc: number[] = [];
+  for (let row = 0, y = step / 2; y < H; row++, y += step * 0.866) {
+    for (let x = (row % 2 ? step : step / 2); x < W; x += step) {
+      const i = (Math.floor(y) * W + Math.floor(x)) * 4;
+      if (d[i + 3] <= 150) continue;
+      front.push((x / W - 0.5) * 3.2, -(y / H - 0.5) * 2, 0.09);
+      facc.push(d[i] > d[i + 2] ? 1 : 0);
+    }
   }
+  const nf = facc.length, nb = Math.floor(nf * 0.4), nd = 170, n = nf + nb + nd;
+  const pos = new Float32Array(n * 3), acc = new Float32Array(n);
+  pos.set(front); acc.set(facc);
+  for (let k = 0; k < nb; k++) {
+    const j = Math.floor(r() * nf);
+    pos.set([front[j * 3], front[j * 3 + 1], -0.16], (nf + k) * 3);
+    acc[nf + k] = facc[j] ? 3 : 2; // back layer
+  }
+  dust(pos, acc, nf + nb, nd, r);
   return { pos, acc, n };
+}
+
+/** Sparse dust floating around the formation (acc = 4). */
+function dust(pos: Float32Array, acc: Float32Array, from: number, count: number, r: () => number) {
+  for (let k = 0; k < count; k++) {
+    pos.set([(r() * 2 - 1) * 2.1, (r() * 2 - 1) * 1.25, (r() * 2 - 1) * 1.2], (from + k) * 3);
+    acc[from + k] = 4;
+  }
 }
 
 /* ---------------- flat formations ---------------- */
@@ -104,7 +126,7 @@ const saturday = (c: Ctx) => {
   for (let row = 0; row < 4; row++) for (let col = 0; col < 7; col++) {
     const x = 90 + col * 21.5, y = 78 + row * 23;
     if (col === 5 && row === 1) { c.fillStyle = A; rr(c, x - 6, y - 6, 24, 24, 6); c.fill(); continue; }
-    c.fillStyle = B; rr(c, x, y, 12, 12, 3); c.fill();
+    c.fillStyle = B; c.beginPath(); c.arc(x + 6, y + 6, 4.2, 0, 7); c.fill();
   }
 };
 
@@ -127,10 +149,11 @@ function gem(n: number, seed: number) {
     edges.push([T[i], T[j]], [G[i], G[j]], [T[i], G[i]], [T[j], G[i]], [G[i], C]);
     tris.push([top, T[i], T[j]], [T[i], T[j], G[i]], [G[p], T[i], G[i]], [G[i], G[j], C]);
   }
+  const nd = 170, n0 = n - nd, ne = Math.floor(n0 * 0.6), per = Math.floor(ne / edges.length);
   const pos = new Float32Array(n * 3), acc = new Float32Array(n);
-  for (let q = 0; q < n; q++) {
+  for (let q = 0; q < n0; q++) {
     let p: V;
-    if (q < n * 0.62) { const [a, b] = edges[Math.floor(r() * edges.length)]; p = lerp(a, b, r()); acc[q] = 0; }
+    if (q < per * edges.length) { const [a, b] = edges[Math.floor(q / per)]; p = lerp(a, b, ((q % per) + 0.5) / per); acc[q] = 0; }
     else {
       const [a, b, c] = tris[Math.floor(r() * tris.length)];
       let u = r(), v = r(); if (u + v > 1) { u = 1 - u; v = 1 - v; }
@@ -139,12 +162,13 @@ function gem(n: number, seed: number) {
     }
     pos.set([p[0], p[1] + 0.06, p[2]], q * 3);
   }
+  dust(pos, acc, n0, nd, r);
   return { pos, acc, n };
 }
 
 function globe(n: number, seed: number) {
   // a dotted globe with arcs connecting learners across places
-  const r = rng(seed), R = 0.9, dots = Math.floor(n * 0.7);
+  const r = rng(seed), R = 0.9, nd = 170, n0 = n - nd, dots = Math.floor(n0 * 0.72);
   const pos = new Float32Array(n * 3), acc = new Float32Array(n);
   for (let i = 0; i < dots; i++) {
     const y = 1 - (i / (dots - 1)) * 2, rad = Math.sqrt(1 - y * y), th = i * 2.39996;
@@ -152,13 +176,15 @@ function globe(n: number, seed: number) {
   }
   const ll = (lat: number, lon: number): V => { const a = (lat * Math.PI) / 180, b = (lon * Math.PI) / 180; return [Math.cos(a) * Math.cos(b), Math.sin(a), Math.cos(a) * Math.sin(b)]; };
   const arcs: [V, V][] = [[ll(11, 77), ll(-34, 151)], [ll(11, 77), ll(51, 0)], [ll(11, 77), ll(40, -74)], [ll(11, 77), ll(1, 104)], [ll(11, 77), ll(25, 55)], [ll(-34, 151), ll(1, 104)]];
-  for (let i = dots; i < n; i++) {
-    const [a, b] = arcs[Math.floor(r() * arcs.length)], t = r();
+  const per = Math.floor((n0 - dots) / arcs.length);
+  for (let i = dots; i < n0; i++) {
+    const q = i - dots, [a, b] = arcs[Math.min(arcs.length - 1, Math.floor(q / per))], t = ((q % per) + 0.5) / per;
     const ang = Math.acos(Math.min(1, a[0] * b[0] + a[1] * b[1] + a[2] * b[2])), s = Math.sin(ang) || 1;
     const wa = Math.sin((1 - t) * ang) / s, wb = Math.sin(t * ang) / s, lift = R * (1 + 0.2 * Math.sin(Math.PI * t));
     pos.set([(a[0] * wa + b[0] * wb) * lift, (a[1] * wa + b[1] * wb) * lift, (a[2] * wa + b[2] * wb) * lift], i * 3);
     acc[i] = 1;
   }
+  dust(pos, acc, n0, nd, r);
   return { pos, acc, n };
 }
 
@@ -171,5 +197,5 @@ export function buildShape(name: string): Shape | null {
   if (name === "premium") return { ...gem(2400, seed), spin: 0.32, tilt: 0.32 };
   if (name === "community") return { ...globe(2600, seed), spin: 0.22, tilt: 0.28 };
   const draw = flat[name];
-  return draw ? { ...fromDrawing(draw, 2300, 0.16, seed), spin: 0, tilt: 0 } : null;
+  return draw ? { ...fromDrawing(draw, 1500, seed), spin: 0, tilt: 0 } : null;
 }

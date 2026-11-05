@@ -1,36 +1,44 @@
 /**
  * Particle illustration engine (plain WebGL, one draw call per panel).
  * Points fly in from a loose cloud and settle into the panel's formation, drift gently,
- * part around the cursor, and burst outward and spring back on click / tap.
+ * part around the cursor, tilt toward it, and ripple out from a click / tap.
  * Runs only while the panel is on screen and shown.
  */
 import { buildShape, type Shape } from "./shapes";
 
 const VS = `
 attribute vec3 aT; attribute vec3 aS; attribute float aR; attribute float aA;
-uniform float uT, uRev, uAsp, uFit, uDpr, uSize, uHover, uBurst, uRy, uRx;
-uniform vec2 uM;
+uniform float uT, uRev, uAsp, uFit, uDpr, uSize, uHover, uRy, uRx, uCT;
+uniform vec2 uM, uC;
 varying float vA, vR, vF, vG;
 float eo(float x) { x = clamp(x, 0.0, 1.0); return 1.0 - pow(1.0 - x, 3.0); }
 void main() {
-  float k = eo(uRev * 1.8 - aR * 0.55 - (aT.x + 1.6) * 0.09);
+  float dust = step(3.5, aA), back = step(1.5, aA) * (1.0 - dust), acc = mod(aA, 2.0) * (1.0 - dust);
+  float k = eo(uRev * 1.8 - aR * 0.55 - (aT.x + 1.6) * 0.09 - back * 0.12);
   vec3 p = mix(aS, aT, k);
-  p += 0.02 * vec3(sin(uT * 0.9 + aR * 31.0), cos(uT * 0.8 + aR * 17.0), sin(uT * 0.7 + aR * 11.0));
-  p += normalize(aS + vec3(0.0001)) * uBurst * (0.25 + aR * 0.6);
+  p += (0.016 + dust * 0.1) * vec3(sin(uT * (0.9 - dust * 0.6) + aR * 31.0), cos(uT * (0.8 - dust * 0.55) + aR * 17.0), sin(uT * 0.7 + aR * 11.0));
   float c = cos(uRy), s = sin(uRy);
   p = vec3(c * p.x + s * p.z, p.y, -s * p.x + c * p.z);
   c = cos(uRx); s = sin(uRx);
   p = vec3(p.x, c * p.y - s * p.z, s * p.y + c * p.z);
   float z = 6.5 - p.z;
   vec2 ndc = vec2(p.x / uAsp, p.y) * uFit * 6.5 / z;
+  // cursor: points part around it and light up
   vec2 d = (ndc - uM) * vec2(uAsp, 1.0);
   float dl = length(d);
-  float f = uHover * smoothstep(0.45, 0.0, dl);
-  if (dl > 0.0001) ndc += d / dl * vec2(1.0 / uAsp, 1.0) * f * 0.1;
+  float f = uHover * smoothstep(0.42, 0.0, dl);
+  if (dl > 0.0001) ndc += d / dl * vec2(1.0 / uAsp, 1.0) * f * 0.09;
+  // click: a ripple runs out from the click point
+  vec2 e = (ndc - uC) * vec2(uAsp, 1.0);
+  float el = length(e);
+  float w = exp(-pow((el - uCT * 1.5) * 8.0, 2.0)) * exp(-uCT * 1.8);
+  if (el > 0.0001) ndc += e / el * vec2(1.0 / uAsp, 1.0) * w * 0.05;
+  // a few points twinkle
+  float tw = pow(max(0.0, sin(uT * 1.6 + aR * 90.0)), 30.0) * step(0.88, fract(aR * 13.0)) * (1.0 - dust);
   gl_Position = vec4(ndc, 0.0, 1.0);
-  gl_PointSize = uSize * uDpr * (0.6 + aR * 0.8) * (6.5 / z) * (1.0 + f * 0.8) * (0.35 + 0.65 * k);
-  vA = aA; vR = aR; vG = f;
-  vF = clamp(0.62 + p.z * 0.45, 0.3, 1.0) * (0.15 + 0.85 * k);
+  gl_PointSize = uSize * uDpr * (0.75 + aR * 0.5) * (1.0 - dust * 0.35) * (1.0 - back * 0.15) * (6.5 / z) * (1.0 + f * 0.7 + w * 1.4 + tw * 0.9) * (0.35 + 0.65 * k);
+  vA = acc; vR = aR; vG = clamp(f + w * 1.5 + tw, 0.0, 1.0);
+  vF = (1.0 - back * 0.55) * (1.0 - dust * 0.62) * clamp(0.85 + p.z * 0.5, 0.45, 1.0) * (0.12 + 0.88 * k);
 }`;
 
 const FS = `
@@ -39,10 +47,10 @@ uniform vec3 uB0, uB1, uA0, uA1;
 varying float vA, vR, vF, vG;
 void main() {
   float d = length(gl_PointCoord - 0.5);
-  float a = smoothstep(0.5, 0.12, d);
-  vec3 col = mix(mix(uB0, uB1, vR), mix(uA0, uA1, vR), vA);
-  col = mix(col, uA1, vG * 0.6);
-  a *= vF * (0.55 + 0.45 * vR);
+  float a = smoothstep(0.5, 0.3, d) * 0.85 + smoothstep(0.3, 0.0, d) * 0.15;
+  vec3 col = mix(mix(uB0, uB1, vR * 0.8), mix(uA0, uA1, vR), vA);
+  col = mix(col, uA1, vG * 0.7);
+  a *= vF * (0.7 + 0.3 * vR) * (1.0 + vG * 0.4);
   gl_FragColor = vec4(col * a, a);
 }`;
 
@@ -74,7 +82,9 @@ function still(host: HTMLElement, sh: Shape) {
     c.clearRect(0, 0, cv.width, cv.height);
     for (let i = 0; i < sh.n; i++) {
       const x = sh.pos[i * 3], y = sh.pos[i * 3 + 1], z = 6.5 - sh.pos[i * 3 + 2], sx = ((x / asp) * fit * 6.5) / z, sy = (y * fit * 6.5) / z;
-      c.fillStyle = sh.acc[i] ? "rgba(124,77,255,.75)" : "rgba(43,22,137,.7)";
+      const a = sh.acc[i];
+      if (a > 3.5) continue;
+      c.fillStyle = a % 2 ? (a > 1.5 ? "rgba(155,92,246,.3)" : "rgba(155,92,246,.85)") : a > 1.5 ? "rgba(43,22,137,.25)" : "rgba(43,22,137,.75)";
       c.beginPath(); c.arc((sx * 0.5 + 0.5) * cv.width, (0.5 - sy * 0.5) * cv.height, 1.3 * dpr, 0, 7); c.fill();
     }
   };
@@ -115,7 +125,7 @@ export function mount(host: HTMLElement, name: string) {
   attr("aT", sh.pos, 3); attr("aS", aS, 3); attr("aR", rnd, 1); attr("aA", sh.acc, 1);
 
   const U: Record<string, WebGLUniformLocation | null> = {};
-  ["uT", "uRev", "uAsp", "uFit", "uDpr", "uSize", "uHover", "uBurst", "uRy", "uRx", "uM", "uB0", "uB1", "uA0", "uA1"].forEach((k) => (U[k] = gl.getUniformLocation(prog, k)));
+  ["uT", "uRev", "uAsp", "uFit", "uDpr", "uSize", "uHover", "uCT", "uC", "uRy", "uRx", "uM", "uB0", "uB1", "uA0", "uA1"].forEach((k) => (U[k] = gl.getUniformLocation(prog, k)));
   (Object.keys(COLORS) as (keyof typeof COLORS)[]).forEach((k) => gl.uniform3fv(U[k], COLORS[k]));
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
@@ -136,8 +146,8 @@ export function mount(host: HTMLElement, name: string) {
     if (!raf) draw();
   };
 
-  /* pointer: points part around the cursor; click / tap makes them burst and re-form */
-  const ptr = { x: 0, y: 0, mx: 0, my: 0, hov: 0, th: 0, burst: 0, bv: 0 };
+  /* pointer: points part around the cursor and tilt toward it; click / tap sends a ripple out */
+  const ptr = { x: 0, y: 0, mx: 0, my: 0, hov: 0, th: 0, cx: 0, cy: 0, ct: 9 };
   const onMove = (e: PointerEvent) => {
     const r = host.getBoundingClientRect();
     ptr.mx = ((e.clientX - r.left) / r.width) * 2 - 1;
@@ -145,7 +155,13 @@ export function mount(host: HTMLElement, name: string) {
     ptr.th = 1;
   };
   const onLeave = () => { ptr.th = 0; ptr.mx = 0; ptr.my = 0; };
-  const onDown = () => { ptr.bv += 3.2; start(); };
+  const onDown = (e: PointerEvent) => {
+    const r = host.getBoundingClientRect();
+    ptr.cx = ((e.clientX - r.left) / r.width) * 2 - 1;
+    ptr.cy = 1 - ((e.clientY - r.top) / r.height) * 2;
+    ptr.ct = 0;
+    start();
+  };
   host.addEventListener("pointermove", onMove);
   host.addEventListener("pointerleave", onLeave);
   host.addEventListener("pointerdown", onDown);
@@ -158,11 +174,12 @@ export function mount(host: HTMLElement, name: string) {
     gl.uniform1f(U.uT, reduced ? 0 : t);
     gl.uniform1f(U.uRev, rev);
     gl.uniform1f(U.uHover, ptr.hov);
-    gl.uniform1f(U.uBurst, ptr.burst);
+    gl.uniform1f(U.uCT, ptr.ct);
+    gl.uniform2f(U.uC, ptr.cx, ptr.cy);
     gl.uniform2f(U.uM, ptr.x, ptr.y);
     const turn = sh.spin ? t * sh.spin : Math.sin(t * 0.35) * 0.2;
     gl.uniform1f(U.uRy, turn + ptr.x * ptr.hov * 0.35);
-    gl.uniform1f(U.uRx, sh.tilt - ptr.y * ptr.hov * 0.12);
+    gl.uniform1f(U.uRx, sh.tilt - ptr.y * ptr.hov * 0.22);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.POINTS, 0, sh.n);
   };
@@ -171,16 +188,17 @@ export function mount(host: HTMLElement, name: string) {
     raf = 0;
     if (!shown()) return;
     // hold still while the page scrolls (once formed); ~30fps at rest; full rate while forming or touched
-    const settled = revAt >= 0 && t - revAt > 2.6 && ptr.hov < 0.02 && Math.abs(ptr.burst) < 0.01;
+    const settled = revAt >= 0 && t - revAt > 2.6 && ptr.hov < 0.02 && ptr.ct > 2;
     const scrolling = now < scrollingUntil;
     if ((scrolling && settled) || ((scrolling || settled) && now - last < 30)) { if (scrolling && settled) last = now; raf = requestAnimationFrame(frame); return; }
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000));
     last = now;
     t += dt;
-    if (revAt < 0) { revAt = t; canvas.classList.add("is-on"); }
+    if (revAt < 0) revAt = t;
+    canvas.classList.add("is-on");
     ptr.x += (ptr.mx - ptr.x) * 0.1; ptr.y += (ptr.my - ptr.y) * 0.1;
     ptr.hov += (ptr.th - ptr.hov) * 0.07;
-    ptr.bv += (-ptr.burst * 38 - ptr.bv * 7.5) * dt; ptr.burst += ptr.bv * dt;
+    ptr.ct += dt;
     draw();
     if (visible && !document.hidden) raf = requestAnimationFrame(frame);
   };
@@ -197,7 +215,12 @@ export function mount(host: HTMLElement, name: string) {
   io.observe(host);
   // tab panels: re-form when the panel is shown again
   const panel = host.closest(".panel");
-  const mo = panel ? new MutationObserver(() => { if (shown()) { if (!reduced) revAt = t; start(); } }) : null;
+  let wasShown = shown();
+  const mo = panel ? new MutationObserver(() => {
+    const now = shown();
+    if (now && !wasShown) { if (!reduced) revAt = -1; start(); }
+    wasShown = now;
+  }) : null;
   mo?.observe(panel!, { attributes: true, attributeFilter: ["class", "hidden"] });
   const onVis = () => (document.hidden ? stop() : visible && start());
   document.addEventListener("visibilitychange", onVis);
