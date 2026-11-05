@@ -23,7 +23,7 @@ export default function HelpPage() {
           </a>
         </div>
       </section>
-      <Cta art="agent" title={<>Prefer a <span className="grad">call back?</span></>} lead="Leave your details and our experts will reach you within 24–48 hours."
+      <Cta art="community" title={<>Prefer a <span className="grad">call back?</span></>} lead="Leave your details and our experts will reach you within 24–48 hours."
         actions={<button className="btn btn--primary btn--lg" type="button" data-enquire="Request a Call">Request a Call <Icon name="arrow" className="i--arrow" /></button>} />
     </>
   );

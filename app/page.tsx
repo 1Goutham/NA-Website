@@ -49,7 +49,7 @@ export default function HomePage() {
       </section>
 
       <Cta
-        art="agentic"
+        art="regular"
         title={<>Ready to start <span className="grad">your AI journey?</span></>}
         lead="Talk to our team. We will help you find the right program."
         actions={<button className="btn btn--primary btn--lg" type="button" data-enquire="Talk to our experts">Talk to our experts <Icon name="arrow" className="i--arrow" /></button>}
