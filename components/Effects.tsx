@@ -15,12 +15,23 @@ export default function Effects() {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const off: Array<() => void> = [];
 
+    /* auto-tag blocks below the fold so every section animates in (no flash for what is already on screen) */
+    const AUTO = ".grid > *, .logos > *, .stats > *, .company__cards > *, .facts-row, .journey, .catalog, .carousel, .faq, .cta, .featured, .story__chapter, .chart-card, .panel-wrap .art, .page-hero .art, .seg, .marquee";
+    const fold = innerHeight * 0.92;
+    all(AUTO).forEach((el) => {
+      if (el.hasAttribute("data-reveal") || el.hasAttribute("data-auto-reveal")) return;
+      if (el.getBoundingClientRect().top < fold) return;
+      const sib = el.parentElement ? [...el.parentElement.children].indexOf(el) : 0;
+      el.setAttribute("data-auto-reveal", "");
+      el.style.setProperty("--ad", `${Math.min(sib, 6) * 0.07}s`);
+    });
+
     /* reveal on scroll */
     const reveal = new IntersectionObserver(
       (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); reveal.unobserve(e.target); } }),
       { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
     );
-    all("[data-reveal], [data-split], [data-inview]").forEach((el) => reveal.observe(el));
+    all("[data-reveal], [data-split], [data-inview], [data-auto-reveal]").forEach((el) => reveal.observe(el));
     off.push(() => reveal.disconnect());
 
     /* line-art and marquees only animate while on screen */

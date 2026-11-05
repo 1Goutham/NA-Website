@@ -46,7 +46,7 @@
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 16px); }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 16px); scroll-behavior: smooth; }
 html, body { overflow-x: clip; }
 body { font-family: var(--font); font-size: 1rem; line-height: 1.65; color: var(--muted); background: var(--bg); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 img, svg, video, canvas, iframe { display: block; max-width: 100%; }
@@ -127,7 +127,7 @@ p { text-wrap: pretty; }
 
 /* ---------- cards (one card for the whole site) ---------- */
 .card { position: relative; display: grid; gap: 14px; align-content: start; padding: 26px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); box-shadow: 0 1px 2px rgb(20 15 54 / 3%), 0 12px 32px -22px rgb(76 46 190 / 22%); transition: border-color .3s, background-color .3s, transform .4s var(--ease); }
-.card:hover { border-color: var(--line-2); box-shadow: 0 1px 2px rgb(20 15 54 / 3%), 0 22px 48px -24px rgb(76 46 190 / 32%); }
+.card:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: 0 1px 2px rgb(20 15 54 / 3%), 0 22px 48px -24px rgb(76 46 190 / 32%); }
 a.card:hover, .card--link:hover { transform: translateY(-3px); }
 .card h3 { font-size: 1.12rem; letter-spacing: -0.015em; }
 .card p { font-size: .94rem; line-height: 1.6; }
@@ -302,7 +302,8 @@ a.card:hover, .card--link:hover { transform: translateY(-3px); }
 }
 
 /* ---------- company behind NA ---------- */
-.company__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 64px); align-items: center; margin-bottom: clamp(32px, 4vw, 48px); }
+.company__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: end; margin-bottom: clamp(36px, 4vw, 56px); }
+.company__aside { display: grid; gap: 20px; }
 .company__copy { display: grid; gap: 20px; align-content: center; }
 .company__facts { display: flex; flex-wrap: wrap; gap: 8px; }
 .company__facts li { padding: 7px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--line-2); font-size: .85rem; color: var(--text); }
@@ -599,3 +600,21 @@ dialog.modal[open] { animation: in-up .35s var(--ease); }
 .art--3d .art__floor { height: 48%; opacity: .7; }
 .art--3d svg { inset: 4%; width: 92%; height: 92%; }
 .art--3d .float, .art--3d .float-sm { transform-box: view-box; }
+
+/* ---------- real-time 3D panels ---------- */
+.art--3d { cursor: grab; touch-action: pan-y; }
+.art--3d.is-grabbing { cursor: grabbing; }
+.art3d__canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; opacity: 0; transition: opacity .8s var(--ease); }
+.art--3d.is-3d-ready .art3d__canvas { opacity: 1; }
+.art--3d .art__poster { transition: opacity .6s var(--ease); }
+.art--3d.is-3d-ready .art__poster { opacity: 0; }
+.art--3d::after { content: "Drag to rotate"; position: absolute; right: 14px; bottom: 12px; font-size: .72rem; font-weight: 500; color: var(--dim); background: rgb(255 255 255 / 80%); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s var(--ease); pointer-events: none; }
+.art--3d.is-3d-ready:hover::after { opacity: 1; transform: none; }
+@media (hover: none) { .art--3d::after { display: none; } }
+
+/* site-wide entrance for blocks tagged automatically below the fold (see Effects) */
+.js [data-auto-reveal] { opacity: 0; transform: translate3d(0, 26px, 0) scale(.985); transition: opacity .9s var(--ease), transform 1s var(--ease), border-color .3s, box-shadow .4s var(--ease); transition-delay: var(--ad, 0s); }
+.js [data-auto-reveal].is-in { opacity: 1; transform: none; }
+.js .card[data-auto-reveal].is-in:hover { transform: translateY(-4px); transition-delay: 0s; }
+.js .art[data-auto-reveal] { transform: translate3d(0, 30px, 0) scale(.96); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .js [data-auto-reveal] { opacity: 1; transform: none; } }

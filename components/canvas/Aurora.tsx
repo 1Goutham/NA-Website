@@ -196,8 +196,12 @@ export default function Aurora({ className = "" }: { className?: string }) {
     };
     // ~40fps is plenty for a slow-moving gradient; drop resolution once if the device struggles
     let lastDraw = 0, slow = 0, frames = 0, degraded = false;
+    let scrollingUntil = 0;
+    const onScrollPause = () => { scrollingUntil = performance.now() + 140; };
+    addEventListener("scroll", onScrollPause, { passive: true });
     const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
+      if (now < scrollingUntil) return; // hold still while the page scrolls
       const dt = now - lastDraw;
       if (dt < 24) return;
       frames++;
@@ -222,7 +226,7 @@ export default function Aurora({ className = "" }: { className?: string }) {
     start();
 
     return () => {
-      stop(); ro.disconnect(); io.disconnect();
+      stop(); ro.disconnect(); io.disconnect(); removeEventListener("scroll", onScrollPause);
       document.removeEventListener("visibilitychange", onVis);
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);

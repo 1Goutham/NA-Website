@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Art from "@/components/ui/Art";
 
 const facts = ["Founded in Coimbatore, 2020", "ISO/IEC 42001:2023 certified", "India & Australia"];
 
@@ -12,10 +11,11 @@ export default function Company() {
           <div className="company__copy">
             <span className="pill" data-reveal="">The company behind Nunnari Academy</span>
             <h2 className="t-h2" id="company-title" data-reveal=""><span className="soft">Backed by</span> Nunnari Labs <span className="soft">&amp;</span> DeepWeaver.</h2>
-            <p className="lead" data-reveal="">Two companies, one delivery team across India and Australia, with one project history and one governance layer.</p>
-            <ul className="company__facts" data-reveal="">{facts.map((f) => <li key={f}>{f}</li>)}</ul>
           </div>
-          <div data-reveal="" style={{ "--d": ".15s" } as React.CSSProperties}><Art name="company" label="Coimbatore and Sydney, connected" /></div>
+          <div className="company__aside" data-reveal="" style={{ "--d": ".12s" } as React.CSSProperties}>
+            <p className="lead">Two companies, one delivery team across India and Australia, with one project history and one governance layer.</p>
+            <ul className="company__facts">{facts.map((f) => <li key={f}>{f}</li>)}</ul>
+          </div>
         </div>
 
         <div className="company__cards">
