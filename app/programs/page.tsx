@@ -1,199 +1,72 @@
 import type { Metadata } from "next";
-import type React from "react";
 import Link from "next/link";
-import Split from "@/components/Split";
-import ProgramsCatalog from "@/components/sections/ProgramsCatalog";
+import Icon from "@/components/Icon";
+import Art from "@/components/ui/Art";
+import Faq from "@/components/ui/Faq";
 import TrackList from "@/components/sections/TrackList";
+import { Cta, Head, PageHero } from "@/components/ui/Blocks";
+import { programList } from "@/lib/programs";
 
 export const metadata: Metadata = {
-  title: "Programs — Recorded, Regular & Premium AI Programmes",
-  description: "Recorded Programmes for students and beginners, 12-week Regular Programmes for beginners and career switchers, and Premium Programmes led by industry experts and board-level leaders.",
+  title: "Programs — Recorded, Regular & Premium",
+  description: "Three 12-week AI programmes: Recorded for K12 & college students, Regular for beginners (L1), Premium for advanced learners (L3+) and the C-Suite.",
   alternates: { canonical: "/programs" },
 };
+
+const faqCats = [{ key: "choose", label: "Choosing" }, { key: "enrol", label: "Enrolling" }];
+const faq = [
+  { q: "Which programme is right for me?", cats: ["choose"], a: "Recorded is for K12 and college students, Regular for beginners (L1), and Premium for advanced learners (L3+) and the C-Suite." },
+  { q: "How long are the programmes?", cats: ["choose"], a: "All three programmes are 12 weeks." },
+  { q: "Which languages are the classes in?", cats: ["choose"], a: "English and Tamil." },
+  { q: "How do I enroll?", cats: ["enrol"], a: "Choose a programme and click Enroll Now, or talk to our team. We reach out within 24–48 hours." },
+  { q: "Do I get access to the learning platform?", cats: ["enrol"], a: "Yes, one year of access to our LMS with all course resources and updates." },
+];
 
 export default function ProgramsPage() {
   return (
     <>
-      <section className="page-hero" aria-labelledby="p-title" style={{"paddingBottom": "clamp(40px,6vw,72px)"} as React.CSSProperties}>
-        <div className="deco" aria-hidden="true">
-          <span className="orb orb--a" />
-          <span className="orb orb--b" />
-          <svg className="deco-lines" viewBox="0 0 1440 700" preserveAspectRatio="none">
-            <path d="M-20 520 C 320 420, 520 700, 900 560 S 1300 300, 1460 360" />
-            <path className="travel" pathLength="1" d="M-20 520 C 320 420, 520 700, 900 560 S 1300 300, 1460 360" />
-          </svg>
-        </div>
-        <div className="container" style={{"position": "relative", "zIndex": "1"} as React.CSSProperties}>
-          <div className="section-head section-head--center" style={{"marginBottom": "clamp(40px,6vw,64px)"} as React.CSSProperties}>
-            <span className="eyebrow eyebrow--center" data-reveal>Our programmes</span>
-            <Split as="h1" className="h1" id="p-title">
-              Learn AI at Your Own{" "}
-              <span className="accent">Pace and Path.</span>
-            </Split>
-            <p className="lead" data-reveal style={{"--d": ".3s"} as React.CSSProperties}>
-              Recorded Programmes for students and beginners, Regular Programmes offering 12-week guided learning for beginners and career switchers, and Premium Programmes led by industry experts and board-level leaders.
-            </p>
-          </div>
-          <div className="grid-3 prog-cards">
-            <article className="card card--hover spot prog-card" data-reveal style={{"--d": "0s"} as React.CSSProperties}>
-              <div className="prog-card__top">
-                <span className="icon-chip icon-chip--lg"><svg className="i"><use href="#i-play" /></svg></span>
-                <span className="prog-card__num">01</span>
+      <PageHero
+        pill="Programs"
+        title={<>Learn AI at your own <span className="grad">pace and path.</span></>}
+        lead="Three 12-week programmes, from your first steps in AI to leading it."
+      />
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container grid grid--3">
+          {programList.map((p, i) => (
+            <Link key={p.key} href={`/programs/${p.key}`} className="card event card--link" data-reveal="" style={{ "--d": `${i * 0.08}s` } as React.CSSProperties}>
+              <Art name={p.art} />
+              <div className="event__body">
+                <div className="event__top"><span className="tag">{p.short}</span><span className="num">{p.num}</span></div>
+                <h3>{p.name}</h3>
+                <p className="clamp3">{p.lead}</p>
+                <span className="link">View details <Icon name="arrow-ur" /></span>
               </div>
-              <span className="badge badge--soft">
-                Students{" "}
-                &amp;
-                {" "}beginners
-              </span>
-              <h2 className="h3" style={{"fontSize": "1.6rem"} as React.CSSProperties}>Recorded Programs</h2>
-              <dl className="prog-card__facts">
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-user" /></svg>
-                    For
-                  </dt>
-                  <dd>
-                    K12 Students{" "}
-                    &amp;
-                    {" "}College Students
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-monitor" /></svg>
-                    Format
-                  </dt>
-                  <dd>Online (Recorded)</dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-clock" /></svg>
-                    Duration
-                  </dt>
-                  <dd>12 Weeks, self-paced</dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-target" /></svg>
-                    Outcome
-                  </dt>
-                  <dd>Foundational AI skills and real projects</dd>
-                </div>
-              </dl>
-              <Link className="link-arrow" href="/programs/recorded">
-                View Details{" "}
-                <svg className="i"><use href="#i-arrow" /></svg>
-              </Link>
-            </article>
-            <article className="card card--hover spot prog-card prog-card--hl" data-reveal style={{"--d": ".1s"} as React.CSSProperties}>
-              <div className="prog-card__top">
-                <span className="icon-chip icon-chip--lg"><svg className="i"><use href="#i-users" /></svg></span>
-                <span className="prog-card__num">02</span>
-              </div>
-              <span className="badge badge--soft">12-week guided learning</span>
-              <h2 className="h3" style={{"fontSize": "1.6rem"} as React.CSSProperties}>Regular Programs</h2>
-              <dl className="prog-card__facts">
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-user" /></svg>
-                    For
-                  </dt>
-                  <dd>
-                    Beginners (L1) &amp; career switchers
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-monitor" /></svg>
-                    Format
-                  </dt>
-                  <dd>Live + Hands-on, Online / Offline</dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-clock" /></svg>
-                    Duration
-                  </dt>
-                  <dd>12 Weeks</dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-target" /></svg>
-                    Outcome
-                  </dt>
-                  <dd>Real skills, a portfolio and practical projects</dd>
-                </div>
-              </dl>
-              <Link className="link-arrow" href="/programs/regular">
-                View Details{" "}
-                <svg className="i"><use href="#i-arrow" /></svg>
-              </Link>
-            </article>
-            <article className="card card--hover spot prog-card" data-reveal style={{"--d": ".2s"} as React.CSSProperties}>
-              <div className="prog-card__top">
-                <span className="icon-chip icon-chip--lg"><svg className="i"><use href="#i-crown" /></svg></span>
-                <span className="prog-card__num">03</span>
-              </div>
-              <span className="badge badge--soft">Led by industry experts</span>
-              <h2 className="h3" style={{"fontSize": "1.6rem"} as React.CSSProperties}>Premium Programs</h2>
-              <dl className="prog-card__facts">
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-user" /></svg>
-                    For
-                  </dt>
-                  <dd>
-                    Advanced (L3+){" "}
-                    &amp;
-                    {" "}C-Suite
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-award" /></svg>
-                    Led by
-                  </dt>
-                  <dd>
-                    Industry experts{" "}
-                    &amp;
-                    {" "}board-level leaders
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    <svg className="i"><use href="#i-clock" /></svg>
-                    Duration
-                  </dt>
-                  <dd>12 Weeks</dd>
-                </div>
-              </dl>
-              <Link className="link-arrow" href="/programs/premium">
-                View Details{" "}
-                <svg className="i"><use href="#i-arrow" /></svg>
-              </Link>
-            </article>
-          </div>
+            </Link>
+          ))}
         </div>
       </section>
-      <section className="section" id="details" aria-label="Programme details" style={{"paddingTop": "clamp(24px,4vw,48px)"} as React.CSSProperties}><div className="container" data-reveal><ProgramsCatalog /></div></section>
-      <section className="section section--surface" id="tracks" aria-labelledby="tracks-title">
+
+      <section className="section">
         <div className="container">
-          <div className="section-head section-head--split">
-            <div style={{"display": "grid", "gap": "18px"} as React.CSSProperties}>
-              <span className="eyebrow" data-reveal>Regular programme tracks</span>
-              <Split as="h2" className="h2" id="tracks-title">
-                12-week programs for{" "}
-                <span className="accent">every path.</span>
-              </Split>
-            </div>
-            <p className="lead" style={{"maxWidth": "420px"} as React.CSSProperties} data-reveal>
-              From critical skills to technical topics, we support your professional development with courses that help you grow and succeed.
-            </p>
-          </div>
+          <Head pill="Regular programme tracks" title={<>12-week tracks for <span className="grad">every path.</span></>} />
           <TrackList />
-          
         </div>
       </section>
+
+      <section className="section">
+        <div className="container">
+          <Head pill="FAQ" title={<>Questions, <span className="grad">answered.</span></>} />
+          <Faq cats={faqCats} items={faq} />
+        </div>
+      </section>
+
+      <Cta
+        art="regular"
+        title={<>Not sure where <span className="grad">to start?</span></>}
+        lead="Talk to our team and we will help you choose the right programme."
+        actions={<button className="btn btn--primary btn--lg" type="button" data-enquire="Help me choose a programme">Talk to us <Icon name="arrow" className="i--arrow" /></button>}
+      />
     </>
   );
 }

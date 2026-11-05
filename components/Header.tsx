@@ -81,7 +81,7 @@ export default function Header() {
       <header className={clsx("site-header", scrolled && "is-scrolled", hidden && !openKey && !drawer && "is-hidden", drawer && "nav-open")}>
         <div className="container header__inner">
           <Link className="brand" href="/" aria-label="Nunnari Academy — School of AI, home">
-            <Image className="brand__logo" src="/assets/logos/academy-logo.png" alt="Nunnari Academy" width={339} height={396} priority />
+            <Image className="brand__logo" src="/assets/brand/academy-horizontal-white.png" alt="Nunnari Academy" width={617} height={216} priority />
           </Link>
 
           <nav className="nav" id="primary-nav" aria-label="Primary">
@@ -102,7 +102,7 @@ export default function Header() {
                       <div>
                         {item.items.map((l) => (
                           <Link key={l.href} href={l.href} aria-current={pathname === l.href ? "page" : undefined} onClick={() => { setOpenKey(null); setDrawer(false); }}>
-                            <span className="icon-chip"><Icon name={l.icon} /></span>
+                            <span className="ico"><Icon name={l.icon} /></span>
                             <span><b>{l.title}</b><span>{l.sub}</span></span>
                           </Link>
                         ))}
@@ -122,7 +122,7 @@ export default function Header() {
           </nav>
 
           <div className="header__cta">
-            <button className="btn btn--primary" type="button" data-enquire="Talk to us" data-magnetic>Talk to us <Icon name="arrow" className="i--arrow" /></button>
+            <button className="btn btn--primary" type="button" data-enquire="Talk to us">Talk to us <Icon name="arrow" className="i--arrow" /></button>
             <button className="burger" type="button" aria-label="Menu" aria-expanded={drawer} aria-controls="primary-nav" onClick={() => setDrawer((d) => !d)}>
               <span /><span /><span />
             </button>

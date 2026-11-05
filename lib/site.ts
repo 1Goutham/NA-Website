@@ -42,7 +42,7 @@ export const nav: NavItem[] = [
     label: "Explore",
     key: "explore",
     items: [
-      { href: "/explore#events", title: "Workshops", sub: "Webinars, workshops & sessions", icon: "calendar" },
+      { href: "/explore#workshops", title: "Workshops", sub: "Webinars, workshops & sessions", icon: "calendar" },
       { href: "/explore#testimonials", title: "Testimonials", sub: "Learners who found their next step", icon: "message" },
       { href: "/explore#community", title: "Community", sub: "Join our AI community", icon: "globe" },
     ],

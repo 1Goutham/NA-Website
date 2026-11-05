@@ -79,38 +79,39 @@ void main(){
   vec2 q = vec2(snoise(vec3(p * 0.55, t)), snoise(vec3(p * 0.55 + vec2(5.2, 1.3), t)));
   vec2 r = vec2(q.y, -q.x) * 0.9 + 0.35 * vec2(sin(p.y * 1.3 + t * 2.1), cos(p.x * 1.1 - t * 1.7));
 
-  // flowing ribbons
+  float n = snoise(vec3(p * 0.7 + 1.2 * r, t * 0.8));
+
+  // flowing light ribbons on a deep ink base
   float rib = sin(n * 2.4 + p.x * 1.3 + p.y * 0.9 + t * 2.0);
-  float ribbon = smoothstep(0.35, 1.0, rib) * 0.7 + smoothstep(0.9, 1.0, rib) * 0.35;
+  float ribbon = smoothstep(0.4, 1.0, rib) * 0.75 + smoothstep(0.92, 1.0, rib) * 0.35;
 
-  vec3 white = vec3(1.0);
-  vec3 lav   = vec3(0.898, 0.863, 1.0);   // #E5DCFF
-  vec3 soft  = vec3(0.780, 0.722, 1.0);   // #C7B8FF
-  vec3 light = vec3(0.545, 0.424, 1.0);   // #8B6CFF
-  vec3 prim  = vec3(0.424, 0.231, 1.0);   // #6C3BFF
-  vec3 deep  = vec3(0.576, 0.200, 0.918); // #9333EA
+  vec3 ink    = vec3(0.031, 0.024, 0.102);  // #08061A
+  vec3 night  = vec3(0.075, 0.055, 0.220);  // #130E38
+  vec3 indigo = vec3(0.180, 0.110, 0.560);  // #2E1C8F
+  vec3 prim   = vec3(0.424, 0.231, 1.000);  // #6C3BFF
+  vec3 lilac  = vec3(0.710, 0.620, 1.000);  // #B59EFF
+  vec3 plum   = vec3(0.450, 0.160, 0.700);  // #7329B3
 
-  vec3 col = mix(white, lav, smoothstep(-0.7, 0.9, n));
-  col = mix(col, soft, smoothstep(0.0, 1.0, r.x * 0.5 + 0.5) * 0.55);
-  col = mix(col, mix(light, deep, smoothstep(-0.4, 0.6, q.y)), ribbon * 0.42);
-  col = mix(col, prim, pow(smoothstep(0.5, 1.0, n * 0.5 + 0.5 + r.y * 0.25), 2.0) * 0.38);
+  vec3 col = mix(ink, night, smoothstep(-0.8, 0.8, n));
+  col = mix(col, indigo, smoothstep(0.1, 1.0, r.x * 0.5 + 0.5) * 0.45);
+  col = mix(col, mix(prim, plum, smoothstep(-0.4, 0.6, q.y)), ribbon * 0.55);
+  col += lilac * pow(smoothstep(0.75, 1.0, rib), 3.0) * 0.18;
 
   // cursor light
-  col += vec3(0.42, 0.24, 1.0) * (0.10 + 0.12 * u_energy) * exp(-md * md * 7.0);
+  col += vec3(0.42, 0.26, 1.0) * (0.06 + 0.10 * u_energy) * exp(-md * md * 6.0);
 
-  // keep a calm, bright field behind the headline
-  vec2 c = (gl_FragCoord.xy / u_res - vec2(0.5, 0.56)) * vec2(1.25, 1.9);
-  float calm = 1.0 - smoothstep(0.22, 0.95, length(c));
-  col = mix(col, vec3(0.992, 0.988, 1.0), calm * 0.88);
+  // calm, darker field behind the headline for contrast
+  vec2 c = (gl_FragCoord.xy / u_res - vec2(0.5, 0.55)) * vec2(1.3, 2.0);
+  float calm = 1.0 - smoothstep(0.15, 0.9, length(c));
+  col = mix(col, ink, calm * 0.62);
 
-  // fade to white at the bottom so the section blends into the page
+  // blend into the page at the bottom and under the navigation
   float yb = gl_FragCoord.y / u_res.y;
-  col = mix(vec3(1.0), col, smoothstep(0.0, 0.3, yb));
-  // and calm under the navigation
-  col = mix(col, vec3(0.99, 0.985, 1.0), smoothstep(0.82, 1.0, yb) * 0.85);
+  col = mix(ink, col, smoothstep(0.0, 0.35, yb));
+  col = mix(col, ink, smoothstep(0.85, 1.0, yb) * 0.7);
 
   // film grain
-  col += (hash(gl_FragCoord.xy + fract(u_time) * 100.0) - 0.5) * 0.022;
+  col += (hash(gl_FragCoord.xy + fract(u_time) * 100.0) - 0.5) * 0.03;
   gl_FragColor = vec4(col, 1.0);
 }
 `;

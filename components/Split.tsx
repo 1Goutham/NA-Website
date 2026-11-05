@@ -23,7 +23,7 @@ export default function Split({ as: Tag = "h2", className, children, ...rest }: 
       }
       if (isValidElement(child)) {
         const el = child as ReactElement<{ className?: string; style?: React.CSSProperties; children?: ReactNode }>;
-        if (el.props.className?.includes("accent")) {
+        if (el.props.className?.includes("accent") || el.props.className?.includes("grad")) {
           return cloneElement(el, { className: clsx(el.props.className, "w"), style: { ...el.props.style, "--wi": wi++ } as React.CSSProperties });
         }
         if (el.type === "br") return el;

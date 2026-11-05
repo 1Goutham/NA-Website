@@ -1,39 +1,37 @@
+import Link from "next/link";
 import Icon from "@/components/Icon";
-import EventArt from "./EventArt";
-import { fmtDate, type EventItem } from "@/lib/events";
+import Art from "@/components/ui/Art";
+import { fmtDate, fmtDuration } from "@/lib/format";
+import { whenOf } from "@/lib/when";
+import type { Workshop } from "@/lib/workshops";
 
-/** Event card. variant="compact" (home carousel) or "detail" (explore). Status (Completed) is set client-side by date. */
-export default function EventCard({ e, variant = "compact" }: { e: EventItem; variant?: "compact" | "detail" }) {
+export type WorkshopCard = Omit<Workshop, "summaryHtml">;
+
+/** Workshop card. Upcoming → Register Now. Live → closed. Completed → recording & summary. */
+export default function EventCard({ w }: { w: WorkshopCard }) {
+  const href = `/workshops/${w.slug}`;
   return (
-    <article className="card card--hover spot event" data-date={e.start} data-end={e.end} data-cat={e.cats.join(" ")}>
-      <div className="event__art art"><EventArt art={e.art} /></div>
+    <article className="card event" data-date={w.start} data-end={w.end} data-when={whenOf(w.start, w.end)}>
+      <Art name={w.art} />
       <div className="event__body">
-        <div className="event__meta">
-          <span className="badge badge--dot badge--soft" data-status="">{e.type}</span>
-          {variant === "compact" && <span className="event__date"><Icon name="calendar" />{fmtDate(e.start)}</span>}
+        <div className="event__top">
+          <span className="tag" data-show="upcoming">{w.type}</span>
+          <span className="tag tag--live" data-show="live">Live now</span>
+          <span className="tag tag--done" data-show="past">{w.youtube ? "Recording" : "Completed"}</span>
+          <span className="card__meta"><Icon name="calendar" />{fmtDate(w.start)}</span>
         </div>
-        <h3>{e.title}</h3>
-        {variant === "compact" ? (
-          <>
-            <p>{e.desc || e.speaker || ""}</p>
-            <div className="event__foot">
-              <span><Icon name="monitor" />{e.mode} • {e.duration}</span>
-              <button className="event__go" type="button" data-register="" data-enquire={`Register: ${e.title}`} aria-label={`Register for ${e.title}`}><Icon name="arrow" /></button>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="event__list">
-              <span><Icon name="calendar" />{fmtDate(e.start)}</span>
-              <span><Icon name="clock" />{e.time}</span>
-              <span><Icon name="monitor" />{e.mode}</span>
-              {e.speaker && <span><Icon name="user" />{e.speaker}</span>}
-            </div>
-            <div className="event__foot">
-              <button className="btn btn--primary btn--sm" type="button" data-register="" data-enquire={`Register: ${e.title}`}><span data-register-label="">Register Now</span> <Icon name="arrow" className="i--arrow" /></button>
-            </div>
-          </>
-        )}
+        <h3><Link href={href}>{w.title}</Link></h3>
+        <p className="clamp3">{w.description || [w.type, w.mode, fmtDuration(w.start, w.end)].join(" · ")}</p>
+        <div className="event__foot">
+          <span className="card__meta"><Icon name="monitor" />{w.mode}</span>
+          <span data-show="upcoming">
+            {w.register
+              ? <a className="btn btn--primary btn--sm" href={w.register} target="_blank" rel="noopener">Register Now <Icon name="arrow-ur" className="i--ur" /></a>
+              : <button className="btn btn--primary btn--sm" type="button" data-enquire={`Register: ${w.title}`}>Register Now <Icon name="arrow" className="i--arrow" /></button>}
+          </span>
+          <span data-show="live"><span className="btn btn--ghost btn--sm" aria-disabled="true">Registration closed</span></span>
+          <Link data-show="past" className="link" href={href}>{w.youtube ? "Watch recording" : "View summary"} <Icon name="arrow-ur" /></Link>
+        </div>
       </div>
     </article>
   );

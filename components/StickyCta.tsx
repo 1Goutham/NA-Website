@@ -34,13 +34,9 @@ export default function StickyCta() {
   if (!mounted) return null;
   return createPortal(
     <aside className={clsx("sticky-cta", shown && "is-shown")} aria-label="Request a callback" aria-hidden={!shown} inert={!shown}>
-      <span className="sticky-cta__icon"><Icon name="phone-wave" /></span>
-      <div className="sticky-cta__copy">
-        <b>Still <span>Confused?</span></b>
-        <small>Request a callback from our team.</small>
-      </div>
+      <div className="sticky-cta__copy"><b>Still confused?</b><small>Request a callback from our team.</small></div>
       <a className="sticky-cta__phone" href={site.phone.href}><Icon name="phone" />{site.phone.label}</a>
-      <button className="btn btn--primary" type="button" data-enquire="Request a Call">Request a Call <Icon name="arrow-ur" className="i--arrow-ur" /></button>
+      <button className="btn btn--primary btn--sm" type="button" data-enquire="Request a Call">Request a Call <Icon name="arrow-ur" className="i--ur" /></button>
       <button className="sticky-cta__close" type="button" aria-label="Dismiss" onClick={dismiss}><Icon name="close" /></button>
     </aside>,
     document.body,

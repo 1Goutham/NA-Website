@@ -1,69 +1,61 @@
 # Nunnari Academy — Website
 
 Next.js (App Router, TypeScript) site for Nunnari Academy — School of AI.
-White-and-violet design system, micro-interactions and animated illustrations built in CSS, SVG and canvas.
+Dark ink-violet theme, one brand violet, and a single line-art illustration style used on every page.
 
 ## Run it
 
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # production build (all pages prerendered as static HTML)
+npm run build      # production build (every page is pre-built static HTML)
 npm start          # serve the production build
 npm run typecheck
 ```
 
-Requires Node 22. On Vercel it is detected as a Next.js project automatically. No custom build settings are needed.
+Requires Node 22. Vercel detects it as a Next.js project automatically.
 
-## Routes
+## Add a workshop (no code)
 
-| Route | Page |
-| --- | --- |
-| `/` | Home: WebGL aurora hero, Who We Are scroll story, Impact, tabbed Programs, Events |
-| `/explore` | Featured workshop, free Saturday session, filterable events, testimonials, community globe |
-| `/programs` | Programme overview, tabbed details, 12-week tracks |
-| `/programs/recorded` · `/programs/regular` · `/programs/premium` | One page per programme |
-| `/partner/institutions` · `/partner/corporates` | Partner with us |
-| `/help` · `/terms` · `/privacy` · `/refund` | Support and legal |
+Workshops work like the Nunnari Labs blog: one markdown file per workshop in `content/workshops/`.
 
-Old `*.html` URLs from the previous static site redirect permanently to these routes (see `next.config.ts`).
-`sitemap.xml` and `robots.txt` are generated.
+1. Copy `content/workshops/_TEMPLATE.md` and rename it, e.g. `intro-to-rag.md`. The file name becomes the page address: `/workshops/intro-to-rag`.
+2. Fill in the details at the top: title, description, start and end time, mode, speaker, which line art to use, and `draft: false`.
+3. Commit. The workshop appears on Home and Explore and gets its own page.
+
+Before the start time the card shows **Register Now**. While the event is running it shows **Registration closed**. Afterwards it shows **Watch recording** or **View summary**. The state is checked in the visitor's browser, so it updates without a rebuild.
+
+After the event, paste the YouTube link into `youtube:` and write the summary under the `---` (markdown). The workshop page then shows the recording followed by the summary.
 
 ## Structure
 
 ```
-app/                    routes (page.tsx per route), root layout, programs/layout.tsx (sticky CTA)
+app/                     one folder per route; programs/layout.tsx adds the sticky "Still confused?" bar
+  workshops/[slug]/      workshop pages, generated from content/workshops
+content/workshops/       workshop markdown files
 components/
-  Header, Footer, Mark, Icon, IconSprite
-  Enquiry.tsx           site-wide enquiry dialog (any element with data-enquire="Topic" opens it)
-  Effects.tsx           reveals, counters, spotlight, magnetic buttons, scene parallax, .ics, event status
-  Split.tsx             headings that animate word by word
-  StickyCta.tsx         floating "Still Confused?" bar — programme pages only
-  sections/             WhoWeAre (scroll story), ProgramsCatalog (tabs), TrackList, Testimonials
-  events/               EventCard, HomeEvents, ExploreEvents (filters), JumpPills, EventArt
-  scenes/               animated illustrations (glass, light, depth)
-  canvas/               Aurora (WebGL hero background), Globe (community)
-  ui/                   Carousel, Accordion, Faq, Marquee, QuoteCarousel
-lib/                    site info & navigation, events, programmes, testimonials
-styles/                 main.css (design tokens + components), scenes.css (illustrations), v2.css (story, CTA, transitions)
-public/assets/          illustrations (WebP) and logos
+  ui/Blocks.tsx          the shared page parts: PageHero, Head (section heading), Card, Cta
+  ui/Art.tsx             line-art panel (drawings in lib/art.ts)
+  templates/             ProgramPage, PartnerPage, LegalPage: pages of the same kind share one template
+  sections/              home sections (Hero, WhyCards, WhoWeAre, Company, Impact, ProgramsCatalog …)
+  events/                workshop card, carousel, list, spotlight, YouTube, add-to-calendar
+  Header, Footer, Enquiry (contact form), Effects (scroll reveals, counters, workshop state)
+lib/                     all content: site & nav, programs, partners, legal, testimonials, workshop loader
+styles/theme.css         the whole design system (tokens at the top)
+public/assets/           brand logos, partner college logos, illustrations
 ```
 
 ## Common edits
 
-- **Events:** edit `lib/events.ts`. Past events are marked "Completed" automatically in the browser. `featured: true` puts one in the Explore hero.
-- **Contact details, socials and navigation:** `lib/site.ts`.
-- **12-week tracks:** `lib/programs.ts`.
-- **Enquiry / "Schedule A Call" form:** `components/Enquiry.tsx` posts to `app/api/enquiry/route.ts` (validated on both sides, regex in `lib/validate.ts`). Set the `ENQUIRY_WEBHOOK_URL` environment variable in Vercel to forward every submission as JSON to your CRM, Google Sheet (Apps Script), Zapier/Make or Slack. Until it is set, submissions only appear in Vercel → Logs.
-- **Brochures:** put PDFs in `public/brochures/` and set their paths in `lib/programs.ts` (`brochures`). Until then "Download Brochure" opens the enquiry form.
-- **Colours:** tokens at the top of `styles/main.css`, from the brand palette sheet.
+- **Programme content:** `lib/programs.ts`. All three programme pages and the home catalogue read from it.
+- **Partner pages (offers, logos, stats, quotes):** `lib/partners.ts`.
+- **Contact details, socials, navigation:** `lib/site.ts`.
+- **Colours:** the tokens at the top of `styles/theme.css`.
+- **Contact form:** posts to `app/api/enquiry/route.ts`. Set `ENQUIRY_WEBHOOK_URL` in Vercel to forward submissions to your CRM, Google Sheet, Zapier or Slack.
+- **Brochures:** put the PDFs in `public/brochures/` and set their paths in `lib/programs.ts` (`brochures`).
 
-## Motion and performance
+## Performance
 
-- Every page is static HTML; JavaScript only adds interaction (progressive enhancement).
-- Scrolling is the browser's native scrolling (runs on the compositor thread, so it never freezes when JavaScript is busy). Animations use `transform` and `opacity`; loops and canvases pause off screen and when the tab is hidden, and run at ~40fps (the aurora drops its resolution automatically on slow devices).
-- No animation library: hero depth, story progress and list entrances are a few lines of plain JS/CSS.
-- `styles/perf.css` keeps it smooth: event-card artwork only animates on hover, no SVG filters on moving art, no layout-triggering animations, no full-page fade on navigation, no live backdrop blur, no blurred animated shapes, no background-position animations, and only the elements that move on scroll get their own GPU layers.
-- All motion is turned off for visitors with `prefers-reduced-motion`.
-- Fonts (Inter, Inter Tight) are self-hosted via Fontsource, so there are no requests to Google at runtime or build time.
-- Images go through `next/image` (AVIF/WebP, responsive sizes, lazy loading).
+- Every page is static HTML. Native scrolling. No animation library.
+- The hero background is a WebGL shader rendered at low resolution. It pauses off screen and falls back to CSS when WebGL is unavailable.
+- Line-art animations pause off screen. All motion is off for visitors with `prefers-reduced-motion`.
