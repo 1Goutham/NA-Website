@@ -1,47 +1,39 @@
 import Image from "next/image";
+import Art from "@/components/ui/Art";
+
+const facts = ["Founded in Coimbatore, 2020", "ISO/IEC 42001:2023 certified", "India & Australia"];
 
 /** The company behind Nunnari Academy (adapted from nunnarilabs.com → Company). */
 export default function Company() {
   return (
     <section className="section section--band" id="company" aria-labelledby="company-title">
-      <div className="container company">
-        <div className="company__copy">
-          <span className="pill" data-reveal="">The company behind Nunnari Academy</span>
-          <h2 className="t-h2" id="company-title" data-reveal=""><span className="soft">Backed by</span> Nunnari Labs <span className="soft">&amp;</span> DeepWeaver.</h2>
-          <p className="lead" data-reveal="">Nunnari Labs was founded in Coimbatore in 2020 and is among the first AI-native companies in India certified to ISO/IEC 42001:2023. With DeepWeaver, it works as one team across India and Australia.</p>
-          <div className="company__regions">
-            <div className="card region" data-reveal="">
-              <div><h3>India</h3><small>Coimbatore · Nunnari Labs</small></div>
-              <ul><li>AI engineering company</li><li>ISO/IEC 42001 certified</li></ul>
-            </div>
-            <div className="card region" data-reveal="" style={{ "--d": ".08s" } as React.CSSProperties}>
-              <div><h3>Australia</h3><small>Sydney · DeepWeaver</small></div>
-              <ul><li>Enterprise AI services</li><li>ANZ organisations</li></ul>
-            </div>
+      <div className="container">
+        <div className="company__top">
+          <div className="company__copy">
+            <span className="pill" data-reveal="">The company behind Nunnari Academy</span>
+            <h2 className="t-h2" id="company-title" data-reveal=""><span className="soft">Backed by</span> Nunnari Labs <span className="soft">&amp;</span> DeepWeaver.</h2>
+            <p className="lead" data-reveal="">Two companies, one delivery team across India and Australia, with one project history and one governance layer.</p>
+            <ul className="company__facts" data-reveal="">{facts.map((f) => <li key={f}>{f}</li>)}</ul>
           </div>
+          <div data-reveal="" style={{ "--d": ".15s" } as React.CSSProperties}><Art name="company" label="Coimbatore and Sydney, connected" /></div>
         </div>
 
-        <div className="company__right">
-          <div className="company__partner" data-reveal="">
-            <span className="eyebrow">Exclusive partnership</span>
-            <div className="company__logos">
-              <Image src="/assets/brand/nunnari-labs-ink.png" alt="Nunnari Labs" width={274} height={322} style={{ height: 64, width: "auto" }} />
-              <span className="x" aria-hidden="true">×</span>
-              <Image src="/assets/logos/deepweaver.webp" alt="DeepWeaver" width={560} height={110} style={{ height: 34, width: "auto" }} />
-            </div>
-            <p>Nunnari Labs and DeepWeaver operate as one delivery team across India and Australia: one project history, one governance layer, no hand-offs between companies.</p>
-          </div>
-          <div className="company__tiles">
-            <div className="company__tile" data-reveal="">
-              <span className="eyebrow">Nunnarivu · intelligence</span>
-              <span className="ta" lang="ta">நுண்ணறிவு</span>
-              <p>Tamil for “intelligence”. It’s where our name comes from.</p>
-            </div>
-            <div className="company__tile" data-reveal="" style={{ "--d": ".08s" } as React.CSSProperties}>
-              <Image src="/assets/logos/deepweaver.webp" alt="DeepWeaver" width={560} height={110} />
-              <p>Weaving human-led AI into the enterprise fabric.</p>
-            </div>
-          </div>
+        <div className="company__cards">
+          <article className="card company__card" data-reveal="">
+            <div className="company__logo"><Image src="/assets/brand/nunnari-labs-ink.png" alt="Nunnari Labs" width={274} height={322} style={{ height: 52, width: "auto" }} /></div>
+            <div><h3>Nunnari Labs</h3><span className="company__where">India · Coimbatore</span></div>
+            <ul className="company__list"><li>AI engineering company</li><li>ISO/IEC 42001 certified</li></ul>
+          </article>
+          <article className="card company__card" data-reveal="" style={{ "--d": ".06s" } as React.CSSProperties}>
+            <div className="company__logo"><Image src="/assets/logos/deepweaver.webp" alt="DeepWeaver" width={560} height={110} style={{ height: 30, width: "auto" }} /></div>
+            <div><h3>DeepWeaver</h3><span className="company__where">Australia · Sydney</span></div>
+            <ul className="company__list"><li>Enterprise AI services</li><li>Weaving human-led AI into the enterprise</li></ul>
+          </article>
+          <article className="card company__card" data-reveal="" style={{ "--d": ".12s" } as React.CSSProperties}>
+            <div className="company__logo"><span className="company__ta" lang="ta">நுண்ணறிவு</span></div>
+            <div><h3>Nunnarivu</h3><span className="company__where">Where our name comes from</span></div>
+            <ul className="company__list"><li>Tamil for “intelligence”</li><li>Rooted in Tamil Nadu, built for global learners</li></ul>
+          </article>
         </div>
       </div>
     </section>

@@ -301,27 +301,21 @@ a.card:hover, .card--link:hover { transform: translateY(-3px); }
   .story__mobile-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 }
 
-/* ---------- company behind NA (nunnarilabs.com style) ---------- */
-.company { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 48px); align-items: start; }
-.company__copy { display: grid; gap: 22px; }
-.company__regions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
-.company__right { display: grid; gap: 16px; }
-.company__partner { display: grid; gap: 18px; padding: 30px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line-2); }
-.company__logos { display: flex; align-items: center; gap: 20px; }
-.company__logos img { height: 52px; width: auto; }
-.company__logos .x { color: var(--lilac-2); font-size: 1.1rem; }
-.company__tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.company__tile { position: relative; overflow: hidden; display: grid; gap: 10px; align-content: end; min-height: 180px; padding: 26px; border-radius: var(--r-lg); background: linear-gradient(180deg, #fff 45%, #ede6ff 140%); border: 1px solid var(--line); }
-.company__tile .ta { font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--text); line-height: 1.1; font-weight: 600; }
-.company__tile p { font-size: .92rem; color: var(--muted); }
-.company__tile img { height: 30px; width: auto; }
-.region h3 { font-size: 1.4rem; }
-.region small { display: block; color: var(--lilac-2); font-size: .92rem; margin-top: 2px; }
-.region ul { display: grid; gap: 8px; margin-top: 14px; }
-.region li { position: relative; padding-left: 16px; font-size: .92rem; }
-.region li::before { content: ""; position: absolute; left: 0; top: .65em; width: 5px; height: 5px; border-radius: 50%; background: var(--lilac-2); }
-@media (max-width: 960px) { .company { grid-template-columns: 1fr; } }
-@media (max-width: 560px) { .company__regions, .company__tiles { grid-template-columns: 1fr; } .company__logos img { height: 40px; } }
+/* ---------- company behind NA ---------- */
+.company__top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 64px); align-items: center; margin-bottom: clamp(32px, 4vw, 48px); }
+.company__copy { display: grid; gap: 20px; align-content: center; }
+.company__facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.company__facts li { padding: 7px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--line-2); font-size: .85rem; color: var(--text); }
+.company__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+.company__card { grid-template-rows: 64px auto 1fr; gap: 18px; padding: 28px; }
+.company__logo { display: flex; align-items: center; height: 64px; }
+.company__card h3 { font-size: 1.3rem; }
+.company__where { display: block; margin-top: 4px; font-size: .9rem; color: var(--brand); font-weight: 500; }
+.company__list { display: grid; gap: 10px; align-content: start; padding-top: 18px; border-top: 1px solid var(--line); }
+.company__list li { position: relative; padding-left: 18px; font-size: .94rem; line-height: 1.5; }
+.company__list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 2px; background: var(--brand); transform: rotate(45deg); }
+.company__ta { font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 700; line-height: 1.2; color: var(--text); white-space: nowrap; background: var(--grad-head); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .1em; }
+@media (max-width: 960px) { .company__top { grid-template-columns: 1fr; } .company__cards { grid-template-columns: 1fr; } }
 
 /* ---------- stats & charts ---------- */
 .stats { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); border-top: 1px solid var(--line); }
